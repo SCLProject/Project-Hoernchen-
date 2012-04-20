@@ -16,8 +16,8 @@ import javax.swing.JPanel;
 
 public class LissMain001 extends JFrame implements MouseListener {
 
-	
-	
+
+
 	JDialog jDialog;
 	JFrame mJFrame;
 	JPanel mJPanel;
@@ -27,40 +27,38 @@ public class LissMain001 extends JFrame implements MouseListener {
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		
+
 		LissMain001 mLSMain = new LissMain001();
-		
-		
-		
-		
+
+
+
+
 	}
 
 	 public LissMain001(){
-		 mJFrame = new JFrame();
-		 mJFrame.setVisible(true);
+		 mJFrame = new JFrame("タイトル");
 		 mJFrame.setTitle("test");
 		 mJButton = new JButton();
 		 mJButton.setText("閉じる");
 		 mJPanel = new JPanel();
 		 mJButton.setActionCommand("close");
 		 mJButton.addMouseListener(this);
-		 
+
 		 mJPanel.add(mJButton);
 		 mJFrame.add(mJPanel);
-		 
+
 		 toggleFullScreenWindow();
-		 
-		 
-		 
+
+
+
 	 }
-	
+
 	private void toggleFullScreenWindow(){
 		GraphicsEnvironment gEn = GraphicsEnvironment.getLocalGraphicsEnvironment();
 		GraphicsDevice gd = gEn.getDefaultScreenDevice();
 		if(gd.getFullScreenWindow()==null){
 		mJFrame.dispose();
 		mJFrame.setUndecorated(true);
-		mJFrame.setVisible(true);
 		gd.setFullScreenWindow(mJFrame);
 		}else{
 			gd.setFullScreenWindow(null);
@@ -68,15 +66,15 @@ public class LissMain001 extends JFrame implements MouseListener {
 			mJFrame.setUndecorated(false);
 			mJFrame.setVisible(true);
 			mJFrame.repaint();
-			
-			
-			
-			
-			
-			
+
+
+
+
+
+
 		}
-		
-		
+
+
 	}
 
 	@Override
@@ -92,28 +90,28 @@ public class LissMain001 extends JFrame implements MouseListener {
 	@Override
 	public void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
-	
-	
-	
-	
+
+
+
+
 }
