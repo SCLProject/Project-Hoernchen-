@@ -348,6 +348,44 @@ public class AccessDB {
     }
 
     /**
+     * log の追加
+     *
+     * @param seatID 席ID
+     * @param state 状態
+     * @return 成功したらtrue
+     */
+    public boolean addLog(int seatID, int state){
+	boolean isSuccess = false;
+	Connection c = null;
+
+	try{
+	    c = getConnection();
+
+	    String sql =
+		"insert into log_t (seat_id, state) values(?, ?)";
+	    PreparedStatement pstate =
+		c.prepareStatement(sql);
+	    pstate.setInt(1, seatID);
+	    pstate.setInt(2, state);
+	    pstate.executeUpdate();
+
+	    isSuccess = true;
+
+	    if(isSuccess) c.commit();
+
+	} catch (SQLException e){
+	    e.printStackTrace();
+	} finally {
+	    try{
+		if(c != null) c.close();
+	    }catch (Exception e){
+		e.printStackTrace();
+	    }
+	}
+	return isSuccess;
+    }
+
+    /**
      * 学生情報をデータベースに追加
      *
      * @param userID 学籍番号
