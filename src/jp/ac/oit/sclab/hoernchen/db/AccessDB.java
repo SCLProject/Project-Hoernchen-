@@ -309,6 +309,134 @@ public class AccessDB {
 	return isSuccess;
     }
 
+    /**
+     * SeatID と userID を紐付けてデータベースに登録
+     *
+     * @param userID 学籍番号
+     * @param SeatID 席ID
+     * @return 成功したらtrue
+     */
+    public boolean setSeat(String userID, int seatID){
+	boolean isSuccess = false;
+	Connection c = null;
+
+	try{
+	    c = getConnection();
+
+	    String sql =
+		"update seat_t set user_id = ? where seat_id = ?";
+	    PreparedStatement pstate =
+            c.prepareStatement(sql);
+	    pstate.setString(1, userID);
+	    pstate.setInt(2, seatID);
+	    pstate.executeUpdate();
+
+	    isSuccess = true;
+
+	    if(isSuccess) c.commit();
+
+	} catch (SQLException e){
+	    e.printStackTrace();
+	} finally {
+	    try{
+		if(c != null) c.close();
+	    }catch (Exception e){
+		e.printStackTrace();
+	    }
+	}
+	return isSuccess;
+    }
+
+    /**
+     * 学生情報をデータベースに追加
+     *
+     * @param userID 学籍番号
+     * @param name 登録される名前
+     * @param grade 
+     * @return 成功したらtrue
+     */
+   public boolean addStudent(String userID, String name, int grade){
+	boolean isSuccess = false;
+	Connection c = null;
+
+	try{
+	    c = getConnection();
+
+	    String sql =
+		"insert into parson_t (user_id, name, grade) values(?, ?, ?)";
+
+	    PreparedStatement pstate =
+		c.prepareStatement(sql);
+	    pstate.setString(1, userID);
+	    pstate.setString(2, name);
+	    pstate.setInt(3, grade);
+	    pstate.executeUpdate();
+
+	    isSuccess = true;
+
+	    if(isSuccess) c.commit();
+
+	} catch (SQLException e){
+	    e.printStackTrace();
+	} finally {
+	    try{
+		if(c != null) c.close();
+	    }catch (Exception e){
+		e.printStackTrace();
+	    }
+	}
+	return isSuccess;
+    }
+
+    /**
+     * user_idから学生情報をデータベースから削除
+     *
+     * @param userID 学籍番号
+     * @return 成功したらtrue
+     */
+   public boolean delStudent(String userID){
+	boolean isSuccess = false;
+	Connection c = null;
+
+	try{
+	    c = getConnection();
+
+	    String delFelicaSql =
+		"update felica_t set user_id = NULL where user_id = ?";
+	    String delSeatSql =
+		"update seat_t set user_id = NULL where user_id = ?";
+	    String delParsonSql =
+		"delete from parson_t where user_id = ?";
+	    
+	    Preparedstatement pstate =
+            c.prepareStatement(delFelicaSql);
+	    pstate.setString(1, userID);
+	    pstate.executeUpdate();
+
+	    pstate = c.prepareStatement(delSeatSql);
+	    pstate.setString(1, userID);
+	    pstate.executeUpdate();
+
+	    pstate = c.prepareStatement(delParsonSql);
+	    pstate.setString(1, userID);
+	    pstate.executeUpdate();
+
+	    isSuccess = true;
+
+	    if(isSuccess) c.commit();
+
+	} catch (SQLException e){
+	    e.printStackTrace();
+	} finally {
+	    try{
+		if(c != null) c.close();
+	    }catch (Exception e){
+		e.printStackTrace();
+	    }
+	}
+	return isSuccess;
+    }
+
     protected void initializeDB(boolean forceCreate) {
 	// TODO データベースを作ってない場合の初期化の実装
 	Connection c = null;
