@@ -1,144 +1,107 @@
 package jp.ac.oit.sclab.hoernchen.main;
 
-import java.awt.Component;
-import java.awt.GraphicsDevice;
-import java.awt.GraphicsEnvironment;
-import java.awt.GridLayout;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
 
 
-/**
-* This code was edited or generated using CloudGarden's Jigloo
-* SWT/Swing GUI Builder, which is free for non-commercial
-* use. If Jigloo is being used commercially (ie, by a corporation,
-* company or business for any purpose whatever) then you
-* should purchase a license for each developer using Jigloo.
-* Please visit www.cloudgarden.com for details.
-* Use of Jigloo implies acceptance of these licensing terms.
-* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED FOR
-* THIS MACHINE, SO JIGLOO OR THIS CODE CANNOT BE USED
-* LEGALLY FOR ANY CORPORATE OR COMMERCIAL PURPOSE.
-*/
-public class LissMain001 extends JFrame implements MouseListener {
+import java.io.IOException;
+import java.io.InputStream;
+
+import javafx.application.Application;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBuilder;
+import javafx.scene.control.Label;
+import javafx.scene.control.LabelBuilder;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.image.ImageViewBuilder;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.PaneBuilder;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.layout.VBoxBuilder;
+import javafx.stage.Stage;
 
 
 
-	/**
-	 *
-	 */
-	private static final long serialVersionUID = 1L;
-	JDialog jDialog;
-	JFrame mJFrame;
-	JPanel mJPanel;
-	JButton	mJButton;
-	CalumnPanel cPanel[] = new CalumnPanel[10];
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+public class LissMain001 extends Application{
 
-		LissMain001 mLSMain = new LissMain001();
+    @Override
+    public void start(Stage stage) {
+        // ステージのタイトルを設定
+        stage.setTitle("Hello World!");
+
+        // ルートのコンテナ
+        StackPane root = new StackPane();
+
+        // シーンの生成
+        Scene scene = new Scene(root, 640, 480);
+
+        // シーンをステージに貼る
+        stage.setScene(scene);
 
 
+        VBox vBox01 = VBoxBuilder.create().id("vBox01")
+        		.alignment(Pos.CENTER)
+        		.prefHeight(scene.getHeight())
+        		.prefWidth(scene.getWidth())
+        		.build();
+
+
+
+
+
+        // ラベル
+
+
+        Image image = new Image(getClass().getResourceAsStream("profile.gif"));
+        ImageView iView = ImageViewBuilder.create().image(image).build();
+
+        Label label = new Label("Label 01");
+
+        Label label2 = LabelBuilder.create().text("Label 02").build();
+        Label label3 = new Label("Label 03");
+        Button imageButton = new Button("text",iView);
+
+
+        vBox01.getChildren().add(label);
+        vBox01.getChildren().add(label2);
+        vBox01.getChildren().add(label3);
+        vBox01.getChildren().add(imageButton);
+        // コンテナにラベルを貼る
+        root.getChildren().add(0, vBox01);
+
+
+
+
+
+
+
+        // ステージの表示
+        stage.show();
+    }
+
+	public static void main(String[] args){
+
+		launch(args);
 	}
 
-	 public LissMain001(){
-		 GridLayout thisLayout = new GridLayout(1, 1);
-		 thisLayout.setColumns(1);
-		 thisLayout.setHgap(5);
-		 thisLayout.setVgap(5);
-		 getContentPane().setLayout(thisLayout);
-	 	{
-		 	this.setSize(504, 436);
-	 	}
-		 mJFrame = new JFrame("タイトル");
-		 mJFrame.setTitle("test");
-		 mJButton = new JButton();
-		 mJButton.setText("閉じる");
-		 mJPanel = new JPanel();
-		 mJButton.setActionCommand("close");
-		 mJButton.addMouseListener(this);
-
-		 for(int i = 0 ; i<cPanel.length;i++){
-		 cPanel[i] = new CalumnPanel();
-		 cPanel[i].setChearId("C-"+i);
-		 mJPanel.add(cPanel[i], i);
-		 }
-
-
-
-		 mJPanel.add(mJButton);
-		 mJFrame.add(mJPanel);
-
-		 toggleFullScreenWindow();
-
-
-
-	 }
-
-	private void toggleFullScreenWindow(){
-		GraphicsEnvironment gEn = GraphicsEnvironment.getLocalGraphicsEnvironment();
-		GraphicsDevice gd = gEn.getDefaultScreenDevice();
-		if(gd.getFullScreenWindow()==null){
-		mJFrame.dispose();
-		mJFrame.setUndecorated(true);
-		gd.setFullScreenWindow(mJFrame);
-		}else{
-			gd.setFullScreenWindow(null);
-			mJFrame.dispose();
-			mJFrame.setUndecorated(false);
-			mJFrame.setVisible(true);
-			mJFrame.repaint();
 
 
 
 
 
 
-		}
 
 
-	}
 
-	@Override
-	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
-		Component src = (Component)e.getSource();
-		if(src == mJButton){
-			mJFrame.dispose();
-			return;
-		}
-	}
 
-	@Override
-	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
 
-	}
 
-	@Override
-	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
 
-	}
 
-	@Override
-	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
 
-	}
 
-	@Override
-	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
 
 
 
