@@ -39,26 +39,26 @@ public class AccessDB {
             PreparedStatement pstate
                 = c.prepareStatement(sql);
             ResultSet rs = pstate.executeQuery();
-            
+
             while(rs.next()){
                 list.add(rs.getInt("seat_id"));
             }
 
         } catch (SQLException e){
             e.printStackTrace();
-        } finally { 
+        } finally {
            try{
                 if(c != null) c.close();
             } catch (Exception e){
-                e.printStackTrace();	
+                e.printStackTrace();
             }
         }
         return list;
     }
-    
+
     /**
      * 座席に所属している人のfelicaIDを返す
-     * 
+     *
      * @param seatId 座席番号
      * @return 成功 long felicaId 失敗 -1
      */
@@ -70,7 +70,7 @@ public class AccessDB {
 	    c = getConnection();
 
 	    String sql =
-		"select * from felica_t natural join seat_t "+ 
+		"select * from felica_t natural join seat_t "+
 		"where seat_id = ?";
 	    PreparedStatement pstate
 		= c.prepareStatement(sql);
@@ -85,7 +85,7 @@ public class AccessDB {
 	    try{
 		if(c != null) c.close();
 	    } catch (Exception e){
-		e.printStackTrace();	
+		e.printStackTrace();
 	    }
 	}
 
@@ -94,7 +94,7 @@ public class AccessDB {
 
     /**
      * 座席に所属している人のGRADEを返す
-     * 
+     *
      * @param seatId 座席番号
      * @return 成功 int grade 失敗 -1
      */
@@ -106,7 +106,7 @@ public class AccessDB {
 	    c = getConnection();
 
 	    String sql =
-		"select * from parson_t natural join seat_t "+ 
+		"select * from parson_t natural join seat_t "+
 		"where seat_id = ?";
 	    PreparedStatement pstate
 		= c.prepareStatement(sql);
@@ -121,7 +121,7 @@ public class AccessDB {
 	    try{
 		if(c != null) c.close();
 	    } catch (Exception e){
-		e.printStackTrace();	
+		e.printStackTrace();
 	    }
 	}
 
@@ -130,7 +130,7 @@ public class AccessDB {
 
     /**
      * 座席に所属している人のIDを返す
-     * 
+     *
      * @param seatId 座席番号
      * @return 成功 String 人の名前 失敗 null
      */
@@ -142,7 +142,7 @@ public class AccessDB {
 	    c = getConnection();
 
 	    String sql =
-		"select * from parson_t natural join seat_t "+ 
+		"select * from parson_t natural join seat_t "+
 		"where seat_id = ?";
 	    PreparedStatement pstate
 		= c.prepareStatement(sql);
@@ -157,7 +157,7 @@ public class AccessDB {
 	    try{
 		if(c != null) c.close();
 	    } catch (Exception e){
-		e.printStackTrace();	
+		e.printStackTrace();
 	    }
 	}
 
@@ -166,7 +166,7 @@ public class AccessDB {
 
     /**
      * 座席に所属している人の名前を返す
-     * 
+     *
      * @param seatID 座席番号
      * @return 成功した時はString 失敗した時はnull
      */
@@ -178,7 +178,7 @@ public class AccessDB {
 	    c = getConnection();
 
 	    String sql =
-		"select * from parson_t natural join seat_t "+ 
+		"select * from parson_t natural join seat_t "+
 		"where seat_id = ?";
 	    PreparedStatement pstate
 		= c.prepareStatement(sql);
@@ -193,7 +193,7 @@ public class AccessDB {
 	    try{
 		if(c != null) c.close();
 	    } catch (Exception e){
-		e.printStackTrace();	
+		e.printStackTrace();
 	    }
 	}
 
@@ -283,10 +283,10 @@ public class AccessDB {
 
 	try{
 	    c = getConnection();
-	    
+
 	    String sql =
 		"update felica_t set felica_id = ?, user_id = ?";
-	    
+
 	    PreparedStatement pstate =
 		c.prepareStatement(sql);
 	    pstate.setInt(1, felicaID);
@@ -390,7 +390,7 @@ public class AccessDB {
      *
      * @param userID 学籍番号
      * @param name 登録される名前
-     * @param grade 
+     * @param grade
      * @return 成功したらtrue
      */
    public boolean addStudent(String userID, String name, int grade){
@@ -445,8 +445,8 @@ public class AccessDB {
 		"update seat_t set user_id = NULL where user_id = ?";
 	    String delParsonSql =
 		"delete from parson_t where user_id = ?";
-	    
-	    Preparedstatement pstate =
+
+	    PreparedStatement pstate =
             c.prepareStatement(delFelicaSql);
 	    pstate.setString(1, userID);
 	    pstate.executeUpdate();
@@ -491,9 +491,9 @@ public class AccessDB {
 	    }
 
 	    {
-		// create tables 
+		// create tables
 	    }
-	    
+
 	    c.commit();
 	    stmt.close();
 	} catch (SQLException e) {
