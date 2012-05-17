@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry excluding="/" kind="src" path="src"/>
-	<classpathentry kind="src" path="lib"/>
-	<classpathentry kind="lib" path="C:/Program Files/Oracle/JavaFX 2.1 SDK/rt/lib/jfxrt.jar"/>
+	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="C:/Program Files/Oracle/JavaFX 2.1 SDK/rt/lib/jfxrt.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
