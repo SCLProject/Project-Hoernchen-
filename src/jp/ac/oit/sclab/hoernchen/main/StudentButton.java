@@ -1,58 +1,58 @@
 package jp.ac.oit.sclab.hoernchen.main;
 
-import java.net.URL;
-import java.util.ResourceBundle;
+import java.io.IOException;
 
-import javafx.fxml.FXML;
+
+
+import javafx.event.Event;
+import javafx.event.EventHandler;
+import javafx.event.EventType;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.Region;
+import javafx.scene.Parent;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
 
-public class StudentButton extends Region  implements Initializable{
-
-	@FXML TextField text_name;
-	@FXML TextField text_time;
-	@FXML TextField text_seat;
-	@FXML TextField text_access;
+public class StudentButton extends Pane implements EventHandler<MouseEvent>{
 
 
-	FXMLLoader fxmlLoader;
-
-
-
+	private Parent root;
+	private StudentButtonController sbController;
+	private final static String fxmlFileName = "item.fxml";
+	
 	public StudentButton(){
-
-		URL location = getClass().getResource("");
-
-
-
-
-
+		root = createRootParentFromFXML();
+		
+		
+		getChildren().add(root);
+		this.setEventHandler(MouseEvent.MOUSE_CLICKED,this);
 
 	}
-
-
-
-
-
-
+	private Parent createRootParentFromFXML(){
+		Parent makeRoot = null;
+		FXMLLoader fxmlLoader = new FXMLLoader();
+		fxmlLoader.setLocation(getClass().getClassLoader().getResource(fxmlFileName));
+		
+		
+		try {
+			makeRoot = (Parent) fxmlLoader.load();
+			sbController = (StudentButtonController)fxmlLoader.getController();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return makeRoot;
+	}
+	
 	@Override
-	public void initialize(URL arg0, ResourceBundle arg1) {
-		// TODO 自動生成されたメソッド・スタブ
-
-
-
-
-
-
+	public void handle(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+		
+		System.exit(0);
+		
+		
+		
 	}
-
-
-
-
-
-
 
 
 
