@@ -4,6 +4,19 @@ import java.util.Iterator;
 import java.util.ArrayList;
 import jp.ac.oit.sclab.hoernchen.db.AccessDB;
 
+/**
+ *
+ * Seatクラスは各席の情報を示します。
+ *
+ * @version 0.1
+ *
+ * @author MasanoriKato
+ * @param seatId 席のID
+ * @param mStudent 学生情報：Studentクラス
+ * @param state	席の状況
+ * @param recentAccess 最終アクセス日時
+ * @param db データベース:AccessDBクラス
+ */
 public class Seat {
     private int seatId;
     private int state;
@@ -18,6 +31,15 @@ public class Seat {
     public static final int STATE_GAKUNAI   = 3;
     public static final int STATE_JYUGYOU   = 4;
 
+
+    /**
+     * 席IDから席情報を取得する
+     *
+     * @param seatId 欲しい席情報の席ID
+     *
+     * @return 席情報：Seatクラス
+     *
+     */
     public Seat(int seatId){
     	db = new AccessDB();
 
@@ -30,14 +52,14 @@ public class Seat {
     /**
      * すべての座席をオブジェクト化してArrayListとして返す
      *
-    * @return 座席リスト ArrayList<Seat> 
+    * @return 座席リスト ArrayList<Seat>
      */
     public static ArrayList<Seat> getSeatArrayList() {
     	AccessDB db = new AccessDB();
-	
+
     	ArrayList<Seat> list = new ArrayList<Seat>();
     	Iterator<Integer> it = db.getAllSeatId().iterator();
-	
+
     	while(it.hasNext()){
     		Integer seatId = it.next();
     		list.add( new Seat(seatId.intValue()) );
