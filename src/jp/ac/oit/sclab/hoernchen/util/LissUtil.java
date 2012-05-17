@@ -3,7 +3,7 @@ package jp.ac.oit.sclab.hoernchen.util;
 public class LissUtil {
 	
 
-
+	public static class State{
 		public static final int STATE_IN_ROOM = 1;
 		public static final int STATE_RETURN_HOME = 2;
 		public static final int STATE_IN_LECTURING = 3;
@@ -49,7 +49,7 @@ public class LissUtil {
 
 	
 	
-	
+}
 	
 
 }

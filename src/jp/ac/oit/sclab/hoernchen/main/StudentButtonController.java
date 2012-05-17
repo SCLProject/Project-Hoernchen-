@@ -32,7 +32,7 @@ public class StudentButtonController implements Initializable {
 		setAccessTime("12/05/16 22:16");
 		setParsonName("豊臣 秀吉");
 		setSeatId("A-002");
-		setState(LissUtil.STATE_UNKOWN);
+		setState(LissUtil.State.STATE_UNKOWN);
 		
 		
 		
@@ -67,7 +67,7 @@ public class StudentButtonController implements Initializable {
 		return accessTimeText.getText();
 	}
 	public void setState(int state){
-		stateButton.setText(LissUtil.createStateString(state));
+		stateButton.setText(LissUtil.State.createStateString(state));
 	}
 	
 	
