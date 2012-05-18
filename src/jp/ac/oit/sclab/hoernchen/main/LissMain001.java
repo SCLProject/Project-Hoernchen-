@@ -3,6 +3,8 @@ package jp.ac.oit.sclab.hoernchen.main;
 
 
 
+import java.util.Calendar;
+
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -63,14 +65,22 @@ public class LissMain001 extends Application{
         StudentButton sButton = new StudentButton();
         vBox01.setPadding(new Insets(20.0));
         vBox01.setSpacing(20.0);
+        String[] names = {"豊臣秀吉","徳川家康","織田信長","武田信玄","西郷隆盛","坂本龍馬","石田三成","伊藤博文"};
+        StudentButton[] sButtons = new StudentButton[names.length];
+        for(int i = 0 ; i < sButtons.length;i++){
+        	sButtons[i] = new StudentButton();
+        	sButtons[i].setParsonName(names[i]);
+        	sButtons[i].setState(((i+3)*7)%6);
+        	sButtons[i].setAccessTime(Calendar.getInstance());
 
-
-        vBox01.getChildren().add(sButton);
-        vBox01.getChildren().add(new StudentButton());
-        vBox01.getChildren().add(new StudentButton());
-        vBox01.getChildren().add(new StudentButton());
-        vBox01.getChildren().add(new StudentButton());
-        vBox01.getChildren().add(imageButton);
+            
+            
+            vBox01.getChildren().add(sButtons[i]);
+            	
+        }
+        
+        
+        
         
         // コンテナにラベルを貼る
         root.getChildren().add(0, vBox01);

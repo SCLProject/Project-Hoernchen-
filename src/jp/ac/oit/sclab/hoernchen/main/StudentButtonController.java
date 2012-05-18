@@ -1,16 +1,12 @@
 package jp.ac.oit.sclab.hoernchen.main;
 
 import java.net.URL;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.ResourceBundle;
 
-import javafx.beans.property.SetProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import jp.ac.oit.sclab.hoernchen.util.LissUtil;
 
 public class StudentButtonController implements Initializable {
@@ -20,6 +16,7 @@ public class StudentButtonController implements Initializable {
 	@FXML Label accessTimeText;
 	@FXML Button stateButton;
 	
+	@SuppressWarnings("unused")
 	private static final String pattern = "YY/MM/dd HH:mm";
 	
 	
@@ -32,7 +29,7 @@ public class StudentButtonController implements Initializable {
 		setAccessTime("12/05/16 22:16");
 		setParsonName("豊臣 秀吉");
 		setSeatId("A-002");
-		setState(LissUtil.State.STATE_UNKOWN);
+		setState(LissUtil.State.STATE_UNKNOWN);
 		
 		
 		
@@ -67,9 +64,11 @@ public class StudentButtonController implements Initializable {
 		return accessTimeText.getText();
 	}
 	public void setState(int state){
-		stateButton.setText(LissUtil.State.createStateString(state));
+		stateButton.setText(LissUtil.State.createStateFromStateId(state));
 	}
-	
+	public int getState(){
+		return LissUtil.State.findStateIdFromStateText(stateButton.getText());
+	}
 	
 
 }

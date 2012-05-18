@@ -1,6 +1,8 @@
 package jp.ac.oit.sclab.hoernchen.main;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 
 
@@ -12,7 +14,7 @@ import javafx.scene.Parent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 
-public class StudentButton extends Pane implements EventHandler<MouseEvent>{
+public class StudentButton extends Pane{
 
 
 	private Parent root;
@@ -24,8 +26,14 @@ public class StudentButton extends Pane implements EventHandler<MouseEvent>{
 		
 		
 		getChildren().add(root);
-		this.setEventHandler(MouseEvent.MOUSE_CLICKED,this);
+		root.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
+			@Override
+			public void handle(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				System.exit(0);
+			}
+		});
 	}
 	private Parent createRootParentFromFXML(){
 		Parent makeRoot = null;
@@ -42,21 +50,27 @@ public class StudentButton extends Pane implements EventHandler<MouseEvent>{
 		}
 		return makeRoot;
 	}
-	
-	@Override
-	public void handle(MouseEvent arg0) {
-		// TODO Auto-generated method stub
+
+
+	public void setParsonName(String name){
+		sbController.setParsonName(name);
+	}
+	public void setAccessTime(Calendar time){
 		
-		
-		System.exit(0);
-		
-		
+		final String pattern = "YY/MM/dd HH:mm";
+		SimpleDateFormat sdf = new SimpleDateFormat(pattern);
+		sbController.setAccessTime(sdf.format(time.getTime()));
+	}
+	public void setSeatId(String seat){
+		sbController.setSeatId(seat);
 		
 	}
-
-
-
-
+	public void setState(int state){
+		sbController.setState(state);
+	}
+	public int getState(){
+		return sbController.getState();
+	}
 
 
 
