@@ -1,0 +1,15 @@
+.button{
+  -fx-base: goldenrod;
+  -fx-background-color: red;
+  -fx-background-radius: 25;
+  -fx-padding:10;
+  -fx-font-family:"Helvetica";
+  -fx-font-size:15px;
+  -fx-font-weight: bold;
+  -fx-text-fill: white;
+  -fx-effect: dropshadow(three-pass-box,rgba(255,255,255,0.2),1,0.0,0,1);
+  -fx-border-radius: 20px;
+  -fx-border: 2px solid gray;
+
+
+}

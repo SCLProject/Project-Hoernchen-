@@ -20,13 +20,15 @@ public class StudentButton extends Pane{
 	private Parent root;
 	private StudentButtonController sbController;
 	private final static String fxmlFileName = "item.fxml";
-	
+
 	public StudentButton(){
 		root = createRootParentFromFXML();
-		
-		
+
+
 		getChildren().add(root);
-		root.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+
+		/*root.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
 			@Override
 			public void handle(MouseEvent arg0) {
@@ -34,16 +36,32 @@ public class StudentButton extends Pane{
 				System.exit(0);
 			}
 		});
-	}
+*/	}
 	private Parent createRootParentFromFXML(){
 		Parent makeRoot = null;
 		FXMLLoader fxmlLoader = new FXMLLoader();
 		fxmlLoader.setLocation(getClass().getClassLoader().getResource(fxmlFileName));
-		
-		
+
+
 		try {
 			makeRoot = (Parent) fxmlLoader.load();
 			sbController = (StudentButtonController)fxmlLoader.getController();
+			sbController.setNotify(0);
+			sbController.getPane().setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+				@Override
+				public void handle(MouseEvent arg0) {
+					// TODO 自動生成されたメソッド・スタブ
+					System.out.println("Name : "+sbController.getParsonName());
+
+					sbController.setNotify(sbController.getNotifyNum()+1);
+
+				}
+
+			});
+
+
+
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -56,14 +74,14 @@ public class StudentButton extends Pane{
 		sbController.setParsonName(name);
 	}
 	public void setAccessTime(Calendar time){
-		
+
 		final String pattern = "YY/MM/dd HH:mm";
 		SimpleDateFormat sdf = new SimpleDateFormat(pattern);
 		sbController.setAccessTime(sdf.format(time.getTime()));
 	}
 	public void setSeatId(String seat){
 		sbController.setSeatId(seat);
-		
+
 	}
 	public void setState(int state){
 		sbController.setState(state);
