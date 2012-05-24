@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns:fx="http://javafx.com/fxml" fx:controller="jp.ac.oit.sclab.hoernchen.main.MainLayoutController">
+  <children>
+    <AnchorPane id="anchorPane1" fx:id="topPanel" layoutX="14.0" layoutY="14.0" prefHeight="100.0" prefWidth="1892.0">
+      <children>
+        <Button id="button1" fx:id="calendarButton" layoutX="1458.0" layoutY="14.0" prefHeight="58.0" prefWidth="420.0" text="Button" />
+        <AnchorPane id="anchorPane6" fx:id="teacherPanel" layoutX="14.0" layoutY="14.0" prefHeight="72.0" prefWidth="364.0" />
+      </children>
+    </AnchorPane>
+    <HBox id="hBox1" layoutX="14.0" layoutY="114.0" prefHeight="952.0" prefWidth="1892.0">
+      <children>
+        <VBox id="vBox1" prefHeight="952.0" prefWidth="757.0">
+          <children>
+            <AnchorPane id="anchorPane2" fx:id="seminar3" prefHeight="51.0" prefWidth="756.9998779296875" />
+            <HBox id="hBox2" prefHeight="901.0" prefWidth="757.0">
+              <children>
+                <VBox id="vBox6" fx:id="seminar3_member1" prefHeight="901.0" prefWidth="378.0" />
+                <VBox id="vBox7" fx:id="seminar3_member2" prefHeight="901.0" prefWidth="378.0" />
+              </children>
+            </HBox>
+          </children>
+        </VBox>
+        <VBox id="vBox2" prefHeight="952.0" prefWidth="757.0">
+          <children>
+            <AnchorPane id="anchorPane3" fx:id="seminar4" prefHeight="51.0" prefWidth="757.0" />
+            <HBox id="hBox2" prefHeight="901.0" prefWidth="757.0">
+              <children>
+                <VBox id="vBox6" fx:id="seminar4_member1" prefHeight="901.0" prefWidth="378.0" />
+                <VBox id="vBox7" fx:id="seminar4_member2" prefHeight="901.0" prefWidth="379.0" />
+              </children>
+            </HBox>
+          </children>
+        </VBox>
+        <VBox id="vBox3" prefHeight="952.0" prefWidth="378.0">
+          <children>
+            <VBox id="vBox4" prefHeight="476.0" prefWidth="378.0">
+              <children>
+                <AnchorPane id="anchorPane4" fx:id="master" prefHeight="51.0" prefWidth="378.0" />
+                <VBox id="vBox8" fx:id="master_member" prefHeight="425.0" prefWidth="378.0" />
+              </children>
+            </VBox>
+            <VBox id="vBox5" prefHeight="476.0" prefWidth="378.0">
+              <children>
+                <AnchorPane id="anchorPane5" fx:id="other" prefHeight="51.0" prefWidth="378.0" />
+                <VBox id="vBox9" fx:id="other_member" prefHeight="425.0" prefWidth="378.0" />
+              </children>
+            </VBox>
+          </children>
+        </VBox>
+      </children>
+    </HBox>
+  </children>
+</AnchorPane>

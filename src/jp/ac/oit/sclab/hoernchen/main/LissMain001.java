@@ -3,33 +3,38 @@ package jp.ac.oit.sclab.hoernchen.main;
 
 
 
+import java.io.IOException;
+import java.net.URL;
 import java.util.Calendar;
 
 import javafx.application.Application;
 import javafx.event.EventHandler;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.LabelBuilder;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
-import javafx.scene.layout.VBoxBuilder;
 import javafx.stage.Stage;
 
 
 
-public class LissMain001 extends Application{
+public class LissMain001 extends Application {
+
+	private static final String fxmlFileName = "layout_example.fxml";
+	MainLayoutController mlController = null;
+
+
 
     @Override
-    public void start(final Stage stage) {
+    public void start(final Stage stage) throws IOException{
         // ステージのタイトルを設定
         stage.setTitle("Hello World!");
 
-        stage.addEventHandler(KeyEvent.KEY_RELEASED,new EventHandler<KeyEvent>() {
+
+
+
+        stage.addEventHandler(KeyEvent.KEY_RELEASED,new EventHandler<KeyEvent>()  {
 
 			@Override
 			public void handle(KeyEvent arg0) {
@@ -43,66 +48,77 @@ public class LissMain001 extends Application{
 		});
 
 
+        FXMLLoader fxmlLoader = new FXMLLoader();
+		fxmlLoader.setLocation(getClass().getClassLoader().getResource(fxmlFileName));
+
+        Parent root = (Parent)fxmlLoader.load();
+        mlController = (MainLayoutController)fxmlLoader.getController();
+
+        String[] s= {"初春飾利","佐天涙子","白井黒子","上条当麻","ニャル子さん","平沢唯","中野梓","牧瀬紅莉栖","巴マミ","鹿目まどか"};
+
+        String[] master = {"ちゃぬさん","りんご","みくし"};
+
+        int[] state = {1,4,5,3,1,2,4,2,6,5,3};
+
+        String[] seat  = {"C-001","C-001","C-001","C-001","C-001","C-001","C-001","C-001","C-001","C-001","C-001","C-001","C-001","C-001","C-001",};
 
 
 
-        // ルートのコンテナ
-        StackPane root = new StackPane();
+        for(int i = 0; i < s.length;i++){
+        	StudentButton sButton = new StudentButton();
 
 
-        // シーンの生成
-        Scene scene = new Scene(root, 640, 480);
-
-        // シーンをステージに貼る
-        stage.setScene(scene);
-        stage.setFullScreen(true);
-        stage.setResizable(false);
-
-        VBox vBox01 = VBoxBuilder.create().id("vBox01")
-        		.alignment(Pos.CENTER)
-        		.prefHeight(scene.getHeight())
-        		.prefWidth(scene.getWidth())
-        		.build();
+        	sButton.setParsonName(s[i]);
+        	sButton.setState(i%5);
+        	sButton.setAccessTime(Calendar.getInstance());
+        	sButton.setSeatId(seat[i]+i);
 
 
+        	try{
+        		if(i % 2 == 0){
 
-
-
-        // ラベル
+        			mlController.setSeminar3Membar(sButton);
+        		}else{
+        			mlController.setSeminar4Membar(sButton);
+        		}
+        	}catch (IllegalArgumentException e) {
+			// TODO: handle exception
 
 
 
+        	}
 
-        Label label = new Label("Label 01");
-
-        Label label2 = LabelBuilder.create().text("Label 02").build();
-        Label label3 = new Label("Label 03");
-        Button imageButton = new Button("text");
-        StudentButton sButton = new StudentButton();
-        vBox01.setPadding(new Insets(20.0));
-        vBox01.setSpacing(20.0);
-        String[] names = {"豊臣秀吉","徳川家康","織田信長","武田信玄","西郷隆盛","坂本龍馬","石田三成","伊藤博文"};
-        StudentButton[] sButtons = new StudentButton[names.length];
-        for(int i = 0 ; i < sButtons.length;i++){
-        	sButtons[i] = new StudentButton();
-        	sButtons[i].setParsonName(names[i]);
-        	sButtons[i].setState(((i+3)*7)%6);
-        	sButtons[i].setAccessTime(Calendar.getInstance());
+        }
+        for(int i = 0; i< master.length;i++){
+        	StudentButton sButton = new StudentButton();
 
 
+        	sButton.setParsonName(master[i]);
+        	sButton.setState(i%5);
+        	sButton.setAccessTime(Calendar.getInstance());
+        	sButton.setSeatId(seat[i]+i);
 
-            vBox01.getChildren().add(sButtons[i]);
+        	try{
 
+        		mlController.setMasterMembar(sButton);
+        	}catch (IllegalArgumentException e) {
+			// TODO: handle exception
+
+
+
+        	}
         }
 
 
 
 
-        // コンテナにラベルを貼る
-        root.getChildren().add(0, vBox01);
+        // シーンの生成
+        Scene scene = new Scene(root);
 
-
-
+        // シーンをステージに貼る
+        stage.setScene(scene);
+        stage.setFullScreen(true);
+        stage.setResizable(false);
 
 
 

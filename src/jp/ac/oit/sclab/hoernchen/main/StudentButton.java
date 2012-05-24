@@ -28,15 +28,7 @@ public class StudentButton extends Pane{
 		getChildren().add(root);
 
 
-		/*root.setOnMouseClicked(new EventHandler<MouseEvent>() {
-
-			@Override
-			public void handle(MouseEvent arg0) {
-				// TODO Auto-generated method stub
-				System.exit(0);
-			}
-		});
-*/	}
+	}
 	private Parent createRootParentFromFXML(){
 		Parent makeRoot = null;
 		FXMLLoader fxmlLoader = new FXMLLoader();
