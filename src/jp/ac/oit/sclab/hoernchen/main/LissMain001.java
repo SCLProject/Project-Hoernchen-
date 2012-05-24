@@ -4,7 +4,6 @@ package jp.ac.oit.sclab.hoernchen.main;
 
 
 import java.io.IOException;
-import java.net.URL;
 import java.util.Calendar;
 
 import javafx.application.Application;
@@ -14,7 +13,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 
@@ -57,8 +55,6 @@ public class LissMain001 extends Application {
         String[] s= {"初春飾利","佐天涙子","白井黒子","上条当麻","ニャル子さん","平沢唯","中野梓","牧瀬紅莉栖","巴マミ","鹿目まどか"};
 
         String[] master = {"ちゃぬさん","りんご","みくし"};
-
-        int[] state = {1,4,5,3,1,2,4,2,6,5,3};
 
         String[] seat  = {"C-001","C-001","C-001","C-001","C-001","C-001","C-001","C-001","C-001","C-001","C-001","C-001","C-001","C-001","C-001",};
 

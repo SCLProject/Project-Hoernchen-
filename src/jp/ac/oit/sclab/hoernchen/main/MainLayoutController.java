@@ -8,9 +8,6 @@ import java.util.ResourceBundle;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
-import javafx.event.EventDispatchChain;
-import javafx.event.EventDispatcher;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -91,7 +88,14 @@ public class MainLayoutController  implements Initializable{
 	}
 
 
+	public void setOtherMembar(Node addNode){
+		int size = other_member.getChildren().size();
+		if(size >= MAX_MEMBAR_OTHER){
+			throw new IllegalArgumentException("Memberは最大数です。");
+		}
 
+		other_member.getChildren().add(addNode);
+	}
 
 
 	public void setSeminar4Membar(Node addNode){
