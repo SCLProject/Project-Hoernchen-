@@ -15,6 +15,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
 public class MainLayoutController  implements Initializable{
@@ -42,10 +43,11 @@ public class MainLayoutController  implements Initializable{
 	@FXML AnchorPane other;
 	@FXML VBox other_member;
 
+	@FXML AnchorPane clockPane;
 
+	Clock clock;
 
-
-	final static  String pattern = "YY/MM/dd HH:mm:ss";
+	final static  String pattern = "YY-MM-dd HH:mm:ss";
 	 SimpleDateFormat sdf = new SimpleDateFormat(pattern);
 	 boolean runnable = true;
 
@@ -119,7 +121,7 @@ public class MainLayoutController  implements Initializable{
 
 
 
-	public void play(){
+	public void clockPlay(){
 
 		delay = new Timeline();
 		delay.getKeyFrames().add(
@@ -127,7 +129,7 @@ public class MainLayoutController  implements Initializable{
 
 					@Override
 					public void handle(ActionEvent event) {
-						// TODO 自動生成されたメソッド・スタブ
+
 						if(secondLine != null){
 							secondLine.stop();
 						}
@@ -138,7 +140,7 @@ public class MainLayoutController  implements Initializable{
 
 									@Override
 									public void handle(ActionEvent event) {
-										// TODO 自動生成されたメソッド・スタブ
+
 										setCalendar();
 									}
 
@@ -162,7 +164,7 @@ public void stop(){
 
 	public void setCalendar(){
 
-		calendarButton.setText(sdf.format(Calendar.getInstance().getTime()));
+		clock.refreshClocks();
 
 
 
@@ -173,8 +175,16 @@ public void stop(){
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		// TODO 自動生成されたメソッド・スタブ
-		play();
+
+
+
+
+		clock = new Clock(Color.ORANGERED, Color.rgb(255, 255, 255, 0.0));
+
+		clockPane.getChildren().add(clock);
+
+
+		clockPlay();
 
 	}
 

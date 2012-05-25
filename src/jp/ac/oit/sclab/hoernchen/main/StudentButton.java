@@ -15,6 +15,7 @@ import javafx.scene.layout.Pane;
 public class StudentButton extends Pane{
 
 
+	final String pattern = "YY-MM-dd HH:mm";
 	private Parent root;
 	private StudentButtonController sbController;
 	private final static String fxmlFileName = "item.fxml";
@@ -65,7 +66,6 @@ public class StudentButton extends Pane{
 	}
 	public void setAccessTime(Calendar time){
 
-		final String pattern = "YY/MM/dd HH:mm";
 		SimpleDateFormat sdf = new SimpleDateFormat(pattern);
 		sbController.setAccessTime(sdf.format(time.getTime()));
 	}
