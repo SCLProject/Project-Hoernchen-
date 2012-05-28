@@ -18,10 +18,12 @@ public class Clock extends Parent {
 	private Digit[] digits;
 	public  static final int HYPHEN = 1002;
 	public static final int SPACE = 1003;
-
+	private double sizeX = 0;
+	private double sizeY = 0;
 
 
 	public Clock(Color onColor,Color offColor){
+
 
 		Glow onEffect = new Glow(1.7f);
 		onEffect.setInput(new InnerShadow());
@@ -49,7 +51,8 @@ public class Clock extends Parent {
 
 
 				digit.setLayoutX(i*40);
-		
+				
+				
 
 
 			digits[i] = digit;
@@ -57,6 +60,9 @@ public class Clock extends Parent {
 
 
 		}
+		sizeX += (digits.length-1)*40;
+		sizeX += 26;
+		sizeY = 54;
 		int base = 11*40+15;
 		Group dots = new Group(
 
@@ -76,7 +82,12 @@ public class Clock extends Parent {
 
 
 	}
-
+	public double getSizeX(){
+		return sizeX;
+	}
+	public double getSizeY(){
+		return sizeY;
+	}
 
 	public void refreshClocks(){
 		calendar = Calendar.getInstance();
@@ -165,7 +176,7 @@ public class Clock extends Parent {
 
         private final Color onColor;
         private final Color offColor;
-
+    	private Color notColor = new Color(0,0,0,0);
         private final Effect onEffect;
         private final Effect offEffect;
 
@@ -228,7 +239,7 @@ public class Clock extends Parent {
 		public void showSpace(){
 
 			for(int i = 0; i< polygons.length;i++){
-				polygons[i].setFill(offColor);
+				polygons[i].setFill(notColor);
 				polygons[i].setEffect(offEffect);
 			}
 

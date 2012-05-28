@@ -1,10 +1,205 @@
 package jp.ac.oit.sclab.hoernchen.util;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 /**
  * @author masanori
  *	プロジェクトで使用する各種ツールクラス類を格納します。
  */
-public class LissUtil {
+public  class LissUtil {
+	
+	
+	public static class DifferenceTime{
+
+		private long differenceMiliSecond = 0;
+		
+		private Calendar newCalendar = null;
+		private Calendar oldCalendar = null;
+		
+		
+		public DifferenceTime(Calendar oldCalendar,Calendar newCalendar){
+			
+			 setOldCalendar(oldCalendar);
+			 setNewCalendar(newCalendar);
+				getDiffrence();
+			 
+			
+			
+			
+			
+		}
+		public DifferenceTime(Calendar oldCalendar){
+			this(oldCalendar,Calendar.getInstance());
+		}
+		
+		private long getDiffrence(){
+			differenceMiliSecond =   newCalendar.getTimeInMillis() - oldCalendar.getTimeInMillis();
+			return differenceMiliSecond;
+		}
+		
+		private void setOldCalendar(Calendar oldCalendar){
+			this.oldCalendar = oldCalendar;
+		}
+		private void setNewCalendar(Calendar newCalendar){
+			this.newCalendar = newCalendar;
+			
+		}
+		
+
+		private int getDifDay(){
+			return (int)(differenceMiliSecond/(1000*60*60*24));
+			}
+		
+		private int getDifHour(){
+			return (int)(differenceMiliSecond/(1000*60*60));
+			}
+		private int getDifMinute(){
+			return (int)(differenceMiliSecond/(1000*60));		
+			}
+		private int getDifSecond(){
+			return (int)(differenceMiliSecond/(1000));
+		}
+
+		public static final int TIME_DAY = 2003;
+		public static final int TIME_HOUR = 2004;
+		public static final int TIME_MINUTE = 2005;
+		public static final int TIME_SECOND = 2006;
+		
+		public String getDifferenceTime(){
+			
+			String ret = "";
+			if(get(TIME_SECOND)<60){
+				ret = "" + get(TIME_SECOND)%60 + "秒";
+				
+			}else{
+			
+				if(get(TIME_SECOND)<60*60){
+					ret = "" + get(TIME_MINUTE)%60 + "分";
+				}
+				else{
+					if(get(TIME_SECOND) < 60*60*5){
+						ret = get(TIME_HOUR)%24+ "時間" + get(TIME_MINUTE)%60 + "分" ; 
+					}
+					else{
+						if(get(TIME_SECOND) < 60 * 60 * 24 ){
+							ret = get(TIME_HOUR)%24+ "時間";
+						}else{
+							if(get(TIME_SECOND) < 60*60*24*7){
+								ret = get(TIME_DAY) + "日" ;
+							}else{
+								return Tools.dateToString(oldCalendar.getTime(), Tools.FORMAT_TYPE_YYYY_MM_DD); 
+							}
+								
+						}
+						
+					}
+					
+					
+				}	
+				
+								
+			}
+			
+			
+			return ret + "前";
+					
+			
+		}
+		
+		private int get(int fieldId){
+
+			
+			switch (fieldId) {
+
+			case TIME_HOUR:
+				return getDifHour();
+				
+			case TIME_MINUTE:
+				return getDifMinute();
+				
+			case TIME_SECOND:
+				return getDifSecond();
+				
+			default:
+				return getDifDay();
+	
+			}
+			
+		}
+		
+		
+	}
+	
+	
+	public static class Tools{
+		public static final int FORMAT_TYPE_YYYY_MM_DD = 0x0;
+		public static final int FORMAT_TYPE_YYYY_MM = 0x1;
+		public static final int FORMAT_TYPE_MM_DD = 0x2;
+		public static final int FORMAT_TYPE_MM = 0x3;
+		public static final int FORMAT_TYPE_FULL = 0x4;
+		public static final int FORMAT_TYPE_DD = 0x5;
+
+	static final int ORDER_MODE_DESC = 0x1001;
+	static final int ORDER_MODE_ASC = 0x1000;
+
+
+
+
+		public static String dateToString(Date date,int formatType){
+			SimpleDateFormat df;
+
+			if(formatType == FORMAT_TYPE_YYYY_MM_DD){
+				df = new SimpleDateFormat("yyyy-MM-dd");
+				return  df.format(date);
+			}
+			else if(formatType == FORMAT_TYPE_MM_DD){
+				df = new SimpleDateFormat("MM-dd");
+				return  df.format(date);
+			}
+			else if(formatType == FORMAT_TYPE_YYYY_MM){
+				df = new SimpleDateFormat("yyyy-MM");
+				return  df.format(date);
+			}
+			else if(formatType == FORMAT_TYPE_MM){
+				df = new SimpleDateFormat("MM");
+				return  df.format(date);
+			}
+			else if(formatType == FORMAT_TYPE_DD){
+				df = new SimpleDateFormat("dd");
+				return df.format(date);
+			}else if(formatType == FORMAT_TYPE_FULL){
+				df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+				return  df.format(date);
+				
+			}
+			else{
+				df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+				return  df.format(date);
+			}
+
+		}
+		/**
+		 * @param dateString only "yyyy-MM-dd HH:mm"
+		 * @return Calendar
+		 */
+		public static Calendar stringToDate(String dateString){
+			Calendar date = Calendar.getInstance();
+			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+			try {
+				date.setTime(df.parse(dateString));
+
+			} catch (ParseException e) {
+				// TODO 自動生成された catch ブロック
+				e.printStackTrace();
+			}
+			return date;
+		}
+
+	}
+	
 	
 
 	/**
@@ -70,7 +265,7 @@ public class LissUtil {
 		else return STATE_UNKNOWN;
 	}
 
-
+	
 	
 	
 }

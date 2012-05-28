@@ -16,6 +16,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.transform.Scale;
 import javafx.util.Duration;
 
 public class MainLayoutController  implements Initializable{
@@ -177,10 +178,28 @@ public void stop(){
 	public void initialize(URL arg0, ResourceBundle arg1) {
 
 
+		
 
-
-		clock = new Clock(Color.ORANGERED, Color.rgb(255, 255, 255, 0.0));
-
+		clock = new Clock(Color.ORANGERED, Color.valueOf("#6b6a6b"));
+		double clockSizeX = clock.getSizeX();
+		double clockSizeY = clock.getSizeY();
+		
+		double paneSizeX = clockPane.getPrefWidth();
+		double paneSizeY = clockPane.getPrefHeight();
+		
+		System.out.println("paneSizeX : "+paneSizeX);
+		System.out.println("paneSizeY : "+paneSizeY);
+		System.out.println("clockSizeX : "+clockSizeX);
+		System.out.println("clockSizeX : "+clockSizeX);
+		
+		
+		double layoutX = paneSizeX/2 - clockSizeX/2;
+		double layoutY = paneSizeY/2 - clockSizeY/2;
+		
+		
+		
+		clock.setLayoutX(layoutX);
+		clock.setLayoutY(layoutY);
 		clockPane.getChildren().add(clock);
 
 
