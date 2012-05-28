@@ -71,43 +71,29 @@ public  class LissUtil {
 		public String getDifferenceTime(){
 			
 			String ret = "";
-			if(get(TIME_SECOND)<60){
-				ret = "" + get(TIME_SECOND)%60 + "秒";
-				
+			int time = get(TIME_SECOND);
+			if(time<60){
+				ret = get(TIME_SECOND)%60 + "秒";			
+			}else if(time<60*60){
+				ret = get(TIME_MINUTE)%60 + "分";
+			}else if(time< 60*60*5){
+				ret = get(TIME_HOUR)%24+ "時間" + get(TIME_MINUTE)%60 + "分" ; 
+			}else if(time < 60 * 60 * 24 ){
+				ret = get(TIME_HOUR)%24+ "時間";
+			}else if(time < 60*60*24*7){
+				ret = get(TIME_DAY) + "日" ;
 			}else{
-			
-				if(get(TIME_SECOND)<60*60){
-					ret = "" + get(TIME_MINUTE)%60 + "分";
-				}
-				else{
-					if(get(TIME_SECOND) < 60*60*5){
-						ret = get(TIME_HOUR)%24+ "時間" + get(TIME_MINUTE)%60 + "分" ; 
-					}
-					else{
-						if(get(TIME_SECOND) < 60 * 60 * 24 ){
-							ret = get(TIME_HOUR)%24+ "時間";
-						}else{
-							if(get(TIME_SECOND) < 60*60*24*7){
-								ret = get(TIME_DAY) + "日" ;
-							}else{
-								return Tools.dateToString(oldCalendar.getTime(), Tools.FORMAT_TYPE_YYYY_MM_DD); 
-							}
-								
-						}
-						
-					}
-					
-					
-				}	
-				
-								
+				return Tools.dateToString(oldCalendar.getTime(), Tools.FORMAT_TYPE_JP); 
 			}
+								
+							
+
 			
 			
 			return ret + "前";
 					
 			
-		}
+}
 		
 		private int get(int fieldId){
 
@@ -141,6 +127,7 @@ public  class LissUtil {
 		public static final int FORMAT_TYPE_MM = 0x3;
 		public static final int FORMAT_TYPE_FULL = 0x4;
 		public static final int FORMAT_TYPE_DD = 0x5;
+		public static final int FORMAT_TYPE_JP = 0x6;
 
 	static final int ORDER_MODE_DESC = 0x1001;
 	static final int ORDER_MODE_ASC = 0x1000;
@@ -174,7 +161,11 @@ public  class LissUtil {
 				df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 				return  df.format(date);
 				
+			}else if(formatType == FORMAT_TYPE_JP){
+				df = new SimpleDateFormat("yyyy年MM月dd日");
+				return  df.format(date);
 			}
+			
 			else{
 				df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 				return  df.format(date);

@@ -10,7 +10,7 @@ public class Test {
 		Calendar o = Calendar.getInstance();
 		Calendar n = Calendar.getInstance();
 		
-		o.add(Calendar.SECOND, 0);
+		o.add(Calendar.MINUTE, -12155);
 		
 		
 		System.out.println("Old Calendar : "+Tools.dateToString(o.getTime(), Tools.FORMAT_TYPE_FULL));
