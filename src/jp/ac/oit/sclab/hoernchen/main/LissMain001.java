@@ -13,6 +13,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 
@@ -69,6 +70,29 @@ public class LissMain001 extends Application {
         	sButton.setState(i%5);
         	sButton.setAccessTime(c);
         	sButton.setSeatId(seat[i]+i);
+        	sButton.addEventHandler(MouseEvent.ANY, new EventHandler<MouseEvent>(){
+
+				@Override
+				public void handle(MouseEvent arg0) {
+					// TODO 自動生成されたメソッド・スタブ
+					Popup popup;
+					try {
+						popup = new Popup();
+
+						popup.setLocation(arg0);
+
+						mlController.getOverLayPane().getChildren().add(popup);
+
+
+
+					} catch (IOException e) {
+						// TODO 自動生成された catch ブロック
+						e.printStackTrace();
+					}
+
+				}
+
+        	});
 
 
         	try{

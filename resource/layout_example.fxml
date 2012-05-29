@@ -61,5 +61,6 @@
         </VBox>
       </children>
     </HBox>
+    <AnchorPane id="anchorPane8" fx:id="pane_Overlay" prefHeight="1080.0" prefWidth="1920.0" />
   </children>
 </AnchorPane>

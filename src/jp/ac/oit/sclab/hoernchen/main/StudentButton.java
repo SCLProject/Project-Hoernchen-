@@ -35,18 +35,7 @@ public class StudentButton extends Pane{
 			makeRoot = (Parent) fxmlLoader.load();
 			sbController = (StudentButtonController)fxmlLoader.getController();
 			sbController.setNotify(0);
-			sbController.getPane().setOnMouseClicked(new EventHandler<MouseEvent>() {
 
-				@Override
-				public void handle(MouseEvent arg0) {
-					// TODO 自動生成されたメソッド・スタブ
-					System.out.println("Name : "+sbController.getParsonName());
-
-					sbController.setNotify(sbController.getNotifyNum()+1);
-
-				}
-
-			});
 
 
 
