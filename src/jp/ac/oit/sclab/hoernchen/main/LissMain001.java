@@ -62,11 +62,12 @@ public class LissMain001 extends Application {
 
         for(int i = 0; i < s.length;i++){
         	StudentButton sButton = new StudentButton();
-
+        	Calendar c = Calendar.getInstance();
+        	c.add(Calendar.MILLISECOND, -1 * ((int)(Math.random()*50000000)));
 
         	sButton.setParsonName(s[i]);
         	sButton.setState(i%5);
-        	sButton.setAccessTime(Calendar.getInstance());
+        	sButton.setAccessTime(c);
         	sButton.setSeatId(seat[i]+i);
 
 
@@ -87,11 +88,11 @@ public class LissMain001 extends Application {
         }
         for(int i = 0; i< master.length;i++){
         	StudentButton sButton = new StudentButton();
-
-
+        	Calendar c = Calendar.getInstance();
+        	c.add(Calendar.MILLISECOND, -1 * ((int)(Math.random()*50000000)));
         	sButton.setParsonName(master[i]);
         	sButton.setState(i%5);
-        	sButton.setAccessTime(Calendar.getInstance());
+        	sButton.setAccessTime(c);
         	sButton.setSeatId(seat[i]+i);
 
         	try{

@@ -1,16 +1,13 @@
 package jp.ac.oit.sclab.hoernchen.main;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-
-
-
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import jp.ac.oit.sclab.hoernchen.util.LissUtil;
 
 public class StudentButton extends Pane{
 
@@ -65,9 +62,8 @@ public class StudentButton extends Pane{
 		sbController.setParsonName(name);
 	}
 	public void setAccessTime(Calendar time){
-
-		SimpleDateFormat sdf = new SimpleDateFormat(pattern);
-		sbController.setAccessTime(sdf.format(time.getTime()));
+		LissUtil.DifferenceTime dT = new LissUtil.DifferenceTime(time);
+		sbController.setAccessTime(dT.getDifferenceTime());
 	}
 	public void setSeatId(String seat){
 		sbController.setSeatId(seat);

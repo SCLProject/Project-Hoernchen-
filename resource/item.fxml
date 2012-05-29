@@ -24,7 +24,7 @@
           </font>
         </Label>
         <Label id="label3" fx:id="accessText" layoutX="32.0" layoutY="75.0" text="LastAccess" textFill="$x1" />
-        <Label id="label4" fx:id="accessTimeText" layoutX="96.0" layoutY="75.0" prefWidth="113.0" text="12/06/21 11:32" textFill="$x1" />
+        <Label id="label4" fx:id="accessTimeText" layoutX="105.0" layoutY="75.0" prefWidth="105.0" text="12/06/21 11:32" textFill="$x1" />
         <Button id="button2" fx:id="notifyButton" layoutX="-12.0" layoutY="-15.0" minHeight="31.0" prefHeight="44.0" prefWidth="44.0" text="Button">
           <stylesheets>
             <URL value="@button_notify.css" />
@@ -36,6 +36,6 @@
         <URL value="@button.css" />
       </stylesheets>
     </AnchorPane>
-    <AnchorPane id="anchorPane1" fx:id="mainPane" layoutX="12.0" layoutY="14.0" prefHeight="96.0" prefWidth="290.0" />
+    <AnchorPane id="anchorPane1" fx:id="mainPane" layoutX="22.0" layoutY="15.0" prefHeight="96.0" prefWidth="290.0" />
   </children>
 </AnchorPane>
