@@ -3,10 +3,12 @@ package jp.ac.oit.sclab.hoernchen.main;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import jp.ac.oit.sclab.hoernchen.util.LissUtil;
 
@@ -35,7 +37,6 @@ public class StudentButtonController implements Initializable {
 		setParsonName("豊臣 秀吉");
 		setSeatId("A-002");
 		setState(LissUtil.State.STATE_UNKNOWN);
-
 
 
 

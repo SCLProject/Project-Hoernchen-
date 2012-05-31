@@ -6,11 +6,19 @@ package jp.ac.oit.sclab.hoernchen.main;
 import java.io.IOException;
 import java.util.Calendar;
 
+import com.sun.scenario.effect.impl.prism.PrImage;
+
 import javafx.application.Application;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.event.Event;
+import javafx.event.EventDispatchChain;
+import javafx.event.EventDispatcher;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -33,7 +41,7 @@ public class LissMain001 extends Application {
 
 
 
-        stage.addEventHandler(KeyEvent.KEY_RELEASED,new EventHandler<KeyEvent>()  {
+       stage.addEventHandler(KeyEvent.KEY_RELEASED,new EventHandler<KeyEvent>()  {
 
 			@Override
 			public void handle(KeyEvent arg0) {
@@ -60,9 +68,8 @@ public class LissMain001 extends Application {
         String[] seat  = {"C-001","C-001","C-001","C-001","C-001","C-001","C-001","C-001","C-001","C-001","C-001","C-001","C-001","C-001","C-001",};
 
 
-
         for(int i = 0; i < s.length;i++){
-        	StudentButton sButton = new StudentButton();
+        	final StudentButton sButton = new StudentButton(stage);
         	Calendar c = Calendar.getInstance();
         	c.add(Calendar.MILLISECOND, -1 * ((int)(Math.random()*50000000)));
 
@@ -70,29 +77,6 @@ public class LissMain001 extends Application {
         	sButton.setState(i%5);
         	sButton.setAccessTime(c);
         	sButton.setSeatId(seat[i]+i);
-        	sButton.addEventHandler(MouseEvent.ANY, new EventHandler<MouseEvent>(){
-
-				@Override
-				public void handle(MouseEvent arg0) {
-					// TODO 自動生成されたメソッド・スタブ
-					Popup popup;
-					try {
-						popup = new Popup();
-
-						popup.setLocation(arg0);
-
-						mlController.getOverLayPane().getChildren().add(popup);
-
-
-
-					} catch (IOException e) {
-						// TODO 自動生成された catch ブロック
-						e.printStackTrace();
-					}
-
-				}
-
-        	});
 
 
         	try{
@@ -111,7 +95,7 @@ public class LissMain001 extends Application {
 
         }
         for(int i = 0; i< master.length;i++){
-        	StudentButton sButton = new StudentButton();
+        	StudentButton sButton = new StudentButton(stage);
         	Calendar c = Calendar.getInstance();
         	c.add(Calendar.MILLISECOND, -1 * ((int)(Math.random()*50000000)));
         	sButton.setParsonName(master[i]);
@@ -130,7 +114,8 @@ public class LissMain001 extends Application {
         	}
         }
 
-
+        Button b = new Button("TEST");
+        mlController.setOtherMembar(b);
 
 
         // シーンの生成
@@ -151,25 +136,6 @@ public class LissMain001 extends Application {
 
 		launch(args);
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 }

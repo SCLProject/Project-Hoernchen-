@@ -51,8 +51,8 @@ public class Clock extends Parent {
 
 
 				digit.setLayoutX(i*40);
-				
-				
+
+
 
 
 			digits[i] = digit;
@@ -183,7 +183,7 @@ public class Clock extends Parent {
         public Digit (Color onColor,Color offColor,Effect onEffect,Effect offEffect){
             this.onColor = onColor;
 
-            this.offColor = offColor;
+            this.offColor = notColor;
 
             this.onEffect = onEffect;
 
@@ -214,10 +214,8 @@ public class Clock extends Parent {
 
             }
            }else if(num == HYPHEN){
-        	   System.out.println("showHyphen();");
         	   showHyphen();
            }else if(num == SPACE){
-        	   System.out.println("showSpace();");
         	  showSpace();
            }else{
 

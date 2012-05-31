@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="332.00010681152344" prefWidth="331.9999000000025" xmlns:fx="http://javafx.com/fxml" fx:controller="jp.ac.oit.sclab.hoernchen.main.PopupController">
+  <children>
+    <Button id="button1" fx:id="btn01" layoutX="111.0" layoutY="111.0" prefHeight="111.0" prefWidth="111.0" text="Button" />
+    <Button id="button2" fx:id="btn_top" layoutX="111.0" prefHeight="111.0" prefWidth="111.0" text="Button" />
+    <Button id="button3" fx:id="btn_left" layoutY="111.0" prefHeight="111.0" prefWidth="111.0" text="Button" />
+    <Button id="button4" fx:id="btn_right" layoutX="221.0" layoutY="111.0" prefHeight="111.0" prefWidth="111.0" text="Button" />
+    <Button id="button5" fx:id="btn_bottom" layoutX="111.0" layoutY="222.0" prefHeight="111.0" prefWidth="111.0" text="Button" />
+  </children>
+</AnchorPane>

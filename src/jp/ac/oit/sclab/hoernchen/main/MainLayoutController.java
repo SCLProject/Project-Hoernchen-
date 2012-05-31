@@ -13,6 +13,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -45,7 +46,6 @@ public class MainLayoutController  implements Initializable{
 	@FXML VBox other_member;
 
 	@FXML AnchorPane clockPane;
-	@FXML AnchorPane pane_Overlay;
 	Clock clock;
 
 	final static  String pattern = "YY-MM-dd HH:mm:ss";
@@ -78,9 +78,7 @@ public class MainLayoutController  implements Initializable{
 
 
 	}
-	public AnchorPane getOverLayPane(){
-		return pane_Overlay;
-	}
+
 
 	public void setMasterMembar(Node addNode){
 
@@ -207,6 +205,11 @@ public void stop(){
 
 
 		clockPlay();
+
+
+
+
+
 
 	}
 
