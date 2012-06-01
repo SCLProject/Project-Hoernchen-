@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.Calendar;
 
 import javafx.event.EventHandler;
+import javafx.event.EventType;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.input.MouseEvent;
@@ -23,149 +24,144 @@ public class StudentButton extends Pane{
 	private StudentButtonController sbController;
 	private final static String fxmlFileName = "item.fxml";
 
+	
+	private static final int STAY = 0;
+	private static final int UP = 1;
+	private static final int DOWN = 2;
+	private static final int LEFT = 3;
+	private static final int RIGHT = 4;
+	private static final int OUT_SIDE = 5;
+	
+	static final double threshold = 50.0;
+	static final double out_threshold = 250.0;
+	
 	Stage primaryStage ;
-
-
-
+	
+	Circle c3;
+	Circle c1;
+	Circle c2;
+	Popup popup = new Popup();
+	Popup popup2 = new Popup();
+	Popup popup3 = new Popup();
+	
+	
 	public StudentButton(Stage stage){
 		root = createRootParentFromFXML();
 
-
+		setEvent();
+		
 		getChildren().add(root);
 		primaryStage = stage;
 
+	
 	}
+	boolean dragged = false;
+	private void setEvent(){
+
+		
+		c1 = new Circle(25,25,50,Color.AQUAMARINE);
+		c2 = new Circle(25,25,25,Color.GOLD);
+		c3 = new Circle(25,25,100,Color.AQUAMARINE);
+		popup.getContent().addAll(c1);
+		popup2.getContent().addAll(c2);
+		popup3.getContent().addAll(c3);
+		
+		
+		
+		
+
+		addEventFilter(MouseEvent.ANY, new EventHandler<MouseEvent>(){
+			
+			@Override
+			public void handle(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				
+				
+				if(arg0.getEventType().equals(MouseEvent.MOUSE_PRESSED)){
+					//System.out.println("MOUSE_PRESSED");
+					popup.setX(arg0.getScreenX()-popup.getWidth()/2);
+					popup.setY(arg0.getScreenY()-popup.getHeight()/2);
+					//popup.show(primaryStage);
+					
+					popup3.setX(primaryStage.getWidth()/2 - popup3.getWidth()/2);
+					popup3.setY(primaryStage.getHeight()/2 - popup3.getHeight()/2);
+					popup3.show(primaryStage);
+					
+					
+				}
+				
+				
+				if(arg0.getEventType().equals(MouseEvent.MOUSE_RELEASED)){
+					//System.out.println("MOUSE_RELEASED");
+					popup.hide();
+					popup2.hide();
+					popup3.hide();
+				}
+				
+				if(arg0.getEventType().equals(MouseEvent.MOUSE_DRAGGED)){
+
+					
+					//System.out.println("MOUSE_DRAGGED");
+					popup2.setX(arg0.getScreenX()-popup2.getWidth()/2);
+					popup2.setY(arg0.getScreenY()-popup2.getHeight()/2);
+					
+
+					// TODO 自動生成されたメソッド・スタブ
+
+
+					Color color = Color.AQUAMARINE;
+					switch(getMouseMovedDerection(getDiffMouseY(), getDiffMouseX())){
+						case UP:
+							color = Color.CORNSILK;
+							break;
+						case DOWN:
+							color = Color.LIGHTGREEN;
+							break;
+						case LEFT:
+							color = Color.LIGHTPINK;
+							break;
+						case RIGHT:
+							color = Color.ORANGERED;
+							break;
+						case STAY:
+						case OUT_SIDE:
+						default:
+							color = Color.AQUAMARINE;
+							break;
+					}
+					
+					c3.setFill(color);
+					
+		
+
+					popup3.show(primaryStage);
+				}
+				
+				
+			}
+			
+		});
+		
+
+		
+		
+	}
+	
+	
 	private Parent createRootParentFromFXML(){
 		Parent makeRoot = null;
 		FXMLLoader fxmlLoader = new FXMLLoader();
 		fxmlLoader.setLocation(getClass().getClassLoader().getResource(fxmlFileName));
-		final Circle c1 = new Circle(25,25,50,Color.AQUAMARINE);
-		Circle c2 = new Circle(25,25,25,Color.GOLD);
-		final Popup popup = new Popup();
-		popup.getContent().addAll(c1);
 
-		final Popup popup2 = new Popup();
-		popup2.getContent().addAll(c2);
 
-		final double threshold = 40.0;
+
+
 
 		try {
 			makeRoot = (Parent) fxmlLoader.load();
 			sbController = (StudentButtonController)fxmlLoader.getController();
 			sbController.setNotify(0);
-			sbController.getPane().setOnMousePressed(new EventHandler<MouseEvent>() {
-
-				@Override
-				public void handle(MouseEvent arg0) {
-					// TODO 自動生成されたメソッド・スタブ
-
-					popup.setX(arg0.getScreenX()-popup.getWidth()/2);
-					popup.setY(arg0.getScreenY()-popup.getHeight()/2);
-					popup.show(primaryStage);
-
-				}
-
-			});
-
-			sbController.getPane().setOnMouseReleased(new EventHandler<MouseEvent>() {
-
-				@Override
-				public void handle(MouseEvent arg0) {
-					// TODO 自動生成されたメソッド・スタブ
-
-					// get diff
-					double diffMouseX = ((popup.getX() + popup.getWidth()/2) - (popup2.getX() + popup2.getWidth()/2));
-					double diffMouseY = ((popup.getY() + popup.getHeight()/2) - (popup2.getY() + popup2.getHeight()/2));
-
-
-					//
-					if((Math.abs(diffMouseX) < threshold) && (Math.abs(diffMouseY) < threshold)){
-						System.out.println("center");
-						c1.setFill(Color.AQUAMARINE);
-					} else if (Math.abs(diffMouseX) < threshold) { // 上下判定
-						if(diffMouseY > 0){
-							System.out.println("up");
-						} else {
-							System.out.println("down");
-						}
-					} else { // 左右判定
-						if(diffMouseX > 0){
-							System.out.println("left");
-						} else {
-							System.out.println("right");
-						}
-
-					}
-
-					popup.hide();
-					popup2.hide();
-				}
-
-			});
-
-
-			sbController.getPane().setOnMouseDragged(new EventHandler<MouseEvent>() {
-
-				@Override
-				public void handle(MouseEvent arg0) {
-					// TODO 自動生成されたメソッド・スタブ
-
-					//System.out.println(arg0.toString());
-
-					popup2.setX(arg0.getScreenX()-popup2.getWidth()/2);
-					popup2.setY(arg0.getScreenY()-popup2.getHeight()/2);
-
-
-					// TODO 自動生成されたメソッド・スタブ
-
-					// get diff
-					double diffMouseX = ((popup.getX() + popup.getWidth()/2) - (popup2.getX() + popup2.getWidth()/2));
-					double diffMouseY = ((popup.getY() + popup.getHeight()/2) - (popup2.getY() + popup2.getHeight()/2));
-
-
-					//
-					if((Math.abs(diffMouseX) < threshold) && (Math.abs(diffMouseY) < threshold)){
-						c1.setFill(Color.AQUAMARINE);
-					} else if (Math.abs(diffMouseX) < threshold) { // 上下判定
-						if(diffMouseY > 0){
-							c1.setFill(Color.RED);
-							} else {
-								c1.setFill(Color.ORANGE);
-						}
-					} else { // 左右判定
-						if(diffMouseX > 0){
-							c1.setFill(Color.YELLOW);
-						} else {
-							c1.setFill(Color.GREEN);
-						}
-
-					}
-
-
-					popup2.show(primaryStage);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-				}
-			});
-
+			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -194,6 +190,45 @@ public class StudentButton extends Pane{
 
 
 
+
+	private int getMouseMovedDerection(double y,double x){
+
+
+		
+		int angle = (int)((Math.atan2(y, x) * 180.0) / Math.PI);
+		
+		
+		
+		
+		if(Math.sqrt(Math.pow(x, 2)+Math.pow(y, 2)) <= threshold){
+			return STAY;
+		}else if(Math.sqrt(Math.pow(x, 2)+Math.pow(y, 2)) > out_threshold){
+			return OUT_SIDE;
+		}else{
+
+			if((45 <= angle) && (angle <= 135)){ // 上
+				return UP;
+			} else if((-45 >= angle) && (angle >= -135)){ // 下
+				return DOWN;
+			} else if((45 > angle) && (angle > -45)) { // 右
+				return  LEFT;
+			} else {
+				return  RIGHT;
+			}
+		}
+	}
+		
+		
+		private double getDiffMouseX(){
+			return  ((popup.getX() + popup.getWidth()/2) - (popup2.getX() + popup2.getWidth()/2));
+			
+		}
+		
+		private double getDiffMouseY(){
+			return  ((popup.getY() + popup.getHeight()/2) - (popup2.getY() + popup2.getHeight()/2));
+			
+		}
+		
 
 
 
