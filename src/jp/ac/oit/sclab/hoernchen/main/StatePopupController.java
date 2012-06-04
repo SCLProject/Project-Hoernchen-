@@ -39,6 +39,9 @@ public class StatePopupController implements Initializable{
 		btn01.setText(s);
 
 	}
+
+	
+	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// TODO 自動生成されたメソッド・スタブ

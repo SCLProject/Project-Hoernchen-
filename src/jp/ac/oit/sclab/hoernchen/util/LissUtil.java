@@ -1,5 +1,6 @@
 package jp.ac.oit.sclab.hoernchen.util;
 
+import java.awt.Point;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -10,6 +11,91 @@ import java.util.Date;
  *	プロジェクトで使用する各種ツールクラス類を格納します。
  */
 public  class LissUtil {
+	
+	public static class PointDirection{
+		
+		public static final int STAY = 0;
+		public static final int UP = 1;
+		public static final int DOWN = 2;
+		public static final int LEFT = 3;
+		public static final int RIGHT = 4;
+		public static final int OUT_SIDE = 5;
+
+		private static final String S_STAY = "STAY";
+		private static final String S_UP = "UP";
+		private static final String S_DOWM = "DOWN";
+		private static final String S_LEFT = "LEFT";
+		private static final String S_RIGHT = "RIGHT";
+		private static final String S_OUT_SIDE = "OUT_SIDE";
+
+		
+		public static int getDirectMoved(Point from,Point to ,double inThreshold,double outThreshold){
+			int ret = STAY;
+			double diffX = from.getX() - to.getX();
+			double diffY = from.getY() - to.getY();
+			
+			if(from.distance(to) <= inThreshold ){
+				return STAY;
+			}
+			if(from.distance(to) >= outThreshold){
+				return OUT_SIDE;
+			}
+			int angle = (int)((Math.atan2(diffY, diffX)*180.0)/Math.PI);
+			if(45 <= angle && angle <= 135){
+				return UP;
+			}else if(-45 >= angle && angle >= -135){
+				return DOWN;
+			}else if(45 > angle && angle > -45){
+				return LEFT;
+			}else{
+				return RIGHT;			
+			}
+	
+		}
+		public static String getDirectMovedString(int i){
+			String ret = "";
+			
+			switch (i) {
+			case UP:
+				ret = S_UP;
+				break;
+
+			case STAY:
+				ret = S_STAY;
+				break;
+
+			case DOWN:
+				ret = S_DOWM;
+				break;
+
+			case LEFT:
+				ret = S_LEFT;
+				break;
+
+			case OUT_SIDE:
+				ret = S_OUT_SIDE;
+				break;
+				
+			case RIGHT:
+				ret = S_RIGHT;
+				break;
+				
+				
+			default:
+				ret = "null";
+				break;
+			}
+			
+			return ret;
+			
+			
+		}
+	
+	
+	}	
+
+	
+	
 	
 	
 	public static class DifferenceTime{
