@@ -43,7 +43,7 @@ public class StudentButton extends Pane{
 
 
 	}
-	boolean dragged = false;
+	
 	private Point pointPressed;
 	private Point pointMoved;
 
@@ -65,17 +65,24 @@ public class StudentButton extends Pane{
 
 
 
-		 mainPane.addEventFilter(TouchEvent.ANY, new EventHandler<TouchEvent>(){
+		 mainPane.addEventHandler(TouchEvent.ANY, new EventHandler<TouchEvent>(){
 
 			@Override
 			public void handle(TouchEvent arg0) {
 				// TODO 自動生成されたメソッド・スタブ
-
+	/*			
+				if(arg0.getEventType().equals(TouchEvent.TOUCH_MOVED)){
+					
+				}
+*/					
+					
+					
 				if(arg0.getEventType().equals(TouchEvent.TOUCH_PRESSED)){
 
 					pointPressed.setLocation(arg0.getTouchPoint().getScreenX(), arg0.getTouchPoint().getScreenY());
 
-
+					System.out.println("X:"+arg0.getTouchPoint().getX());
+					System.out.println("Y:"+arg0.getTouchPoint().getY());
 
 					popup.setX(arg0.getTouchPoint().getScreenX()-sPopup.getWidth()/2);
 					popup.setY(arg0.getTouchPoint().getScreenY()-sPopup.getHeight()/2);
@@ -102,7 +109,7 @@ public class StudentButton extends Pane{
 
 
 
-
+/*
 		mainPane.addEventFilter(MouseEvent.ANY, new EventHandler<MouseEvent>(){
 
 			@Override
@@ -145,7 +152,7 @@ public class StudentButton extends Pane{
 		});
 
 
-
+*/
 
 	}
 	private int getDirection(){
