@@ -11,9 +11,9 @@ import java.util.Date;
  *	プロジェクトで使用する各種ツールクラス類を格納します。
  */
 public  class LissUtil {
-	
+
 	public static class PointDirection{
-		
+
 		public static final int STAY = 0;
 		public static final int UP = 1;
 		public static final int DOWN = 2;
@@ -28,12 +28,12 @@ public  class LissUtil {
 		private static final String S_RIGHT = "RIGHT";
 		private static final String S_OUT_SIDE = "OUT_SIDE";
 
-		
+
 		public static int getDirectMoved(Point from,Point to ,double inThreshold,double outThreshold){
 			int ret = STAY;
 			double diffX = from.getX() - to.getX();
 			double diffY = from.getY() - to.getY();
-			
+
 			if(from.distance(to) <= inThreshold ){
 				return STAY;
 			}
@@ -48,13 +48,13 @@ public  class LissUtil {
 			}else if(45 > angle && angle > -45){
 				return LEFT;
 			}else{
-				return RIGHT;			
+				return RIGHT;
 			}
-	
+
 		}
 		public static String getDirectMovedString(int i){
 			String ret = "";
-			
+
 			switch (i) {
 			case UP:
 				ret = S_UP;
@@ -75,75 +75,75 @@ public  class LissUtil {
 			case OUT_SIDE:
 				ret = S_OUT_SIDE;
 				break;
-				
+
 			case RIGHT:
 				ret = S_RIGHT;
 				break;
-				
-				
+
+
 			default:
 				ret = "null";
 				break;
 			}
-			
-			return ret;
-			
-			
-		}
-	
-	
-	}	
 
-	
-	
-	
-	
+			return ret;
+
+
+		}
+
+
+	}
+
+
+
+
+
 	public static class DifferenceTime{
 
 		private long differenceMiliSecond = 0;
-		
+
 		private Calendar newCalendar = null;
 		private Calendar oldCalendar = null;
-		
-		
+
+
 		public DifferenceTime(Calendar oldCalendar,Calendar newCalendar){
-			
+
 			 setOldCalendar(oldCalendar);
 			 setNewCalendar(newCalendar);
 				getDiffrence();
-			 
-			
-			
-			
-			
+
+
+
+
+
 		}
 		public DifferenceTime(Calendar oldCalendar){
 			this(oldCalendar,Calendar.getInstance());
 		}
-		
+
 		private long getDiffrence(){
 			differenceMiliSecond =   newCalendar.getTimeInMillis() - oldCalendar.getTimeInMillis();
 			return differenceMiliSecond;
 		}
-		
+
 		private void setOldCalendar(Calendar oldCalendar){
 			this.oldCalendar = oldCalendar;
 		}
 		private void setNewCalendar(Calendar newCalendar){
 			this.newCalendar = newCalendar;
-			
+
 		}
-		
+
 
 		private int getDifDay(){
 			return (int)(differenceMiliSecond/(1000*60*60*24));
 			}
-		
+
 		private int getDifHour(){
 			return (int)(differenceMiliSecond/(1000*60*60));
 			}
 		private int getDifMinute(){
-			return (int)(differenceMiliSecond/(1000*60));		
+			return (int)(differenceMiliSecond/(1000*60));
 			}
 		private int getDifSecond(){
 			return (int)(differenceMiliSecond/(1000));
@@ -153,59 +153,59 @@ public  class LissUtil {
 		public static final int TIME_HOUR = 2004;
 		public static final int TIME_MINUTE = 2005;
 		public static final int TIME_SECOND = 2006;
-		
+
 		public String getDifferenceTime(){
-			
+
 			String ret = "";
 			int time = get(TIME_SECOND);
 			if(time<60){
-				ret = get(TIME_SECOND)%60 + "秒";			
+				ret = get(TIME_SECOND)%60 + "秒";
 			}else if(time<60*60){
 				ret = get(TIME_MINUTE)%60 + "分";
 			}else if(time< 60*60*5){
-				ret = get(TIME_HOUR)%24+ "時間" + get(TIME_MINUTE)%60 + "分" ; 
+				ret = get(TIME_HOUR)%24+ "時間" + get(TIME_MINUTE)%60 + "分" ;
 			}else if(time < 60 * 60 * 24 ){
 				ret = get(TIME_HOUR)%24+ "時間";
 			}else if(time < 60*60*24*7){
 				ret = get(TIME_DAY) + "日" ;
 			}else{
-				return Tools.dateToString(oldCalendar.getTime(), Tools.FORMAT_TYPE_JP); 
+				return Tools.dateToString(oldCalendar.getTime(), Tools.FORMAT_TYPE_JP);
 			}
-								
-							
 
-			
-			
+
+
+
+
 			return ret + "前";
-					
-			
+
+
 }
-		
+
 		private int get(int fieldId){
 
-			
+
 			switch (fieldId) {
 
 			case TIME_HOUR:
 				return getDifHour();
-				
+
 			case TIME_MINUTE:
 				return getDifMinute();
-				
+
 			case TIME_SECOND:
 				return getDifSecond();
-				
+
 			default:
 				return getDifDay();
-	
+
 			}
-			
+
 		}
-		
-		
+
+
 	}
-	
-	
+
+
 	public static class Tools{
 		public static final int FORMAT_TYPE_YYYY_MM_DD = 0x0;
 		public static final int FORMAT_TYPE_YYYY_MM = 0x1;
@@ -246,12 +246,12 @@ public  class LissUtil {
 			}else if(formatType == FORMAT_TYPE_FULL){
 				df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 				return  df.format(date);
-				
+
 			}else if(formatType == FORMAT_TYPE_JP){
 				df = new SimpleDateFormat("yyyy年MM月dd日");
 				return  df.format(date);
 			}
-			
+
 			else{
 				df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 				return  df.format(date);
@@ -276,8 +276,8 @@ public  class LissUtil {
 		}
 
 	}
-	
-	
+
+
 
 	/**
 	 * @author masanori
@@ -285,13 +285,18 @@ public  class LissUtil {
 	 *　staticフィールドでそれぞれの状態を示します。
 	 */
 	public static class State{
+
+		private int now;
+
+
+
 		public static final int STATE_IN_ROOM = 1;
 		public static final int STATE_RETURN_HOME = 2;
 		public static final int STATE_IN_LECTURING = 3;
 		public static final int STATE_ON_CAMPUS = 4;
 		public static final int STATE_OFF_CAMPUS = 5;
 		public static final int STATE_UNKNOWN = 0;
-		
+
 		public static final String _TEXT_STATE_IN_ROOM = "在室";
 		public static final String _TEXT_STATE_RETURN_HOME = "帰宅";
 		public static final String _TEXT_STATE_IN_LECTURING = "授業";
@@ -306,15 +311,15 @@ public  class LissUtil {
 	public static String createStateFromStateId(int stateId){
 		String state = null;
 		switch(stateId){
-		
+
 		case STATE_IN_ROOM:
 			state = _TEXT_STATE_IN_ROOM;
 			break;
-			
+
 		case STATE_RETURN_HOME:
 			state = _TEXT_STATE_RETURN_HOME;
 			break;
-			
+
 		case STATE_ON_CAMPUS:
 			state = _TEXT_STATE_ON_CAMPUS;
 			break;
@@ -328,8 +333,24 @@ public  class LissUtil {
 		default:
 			state = _TEXT_STATE_UNKNOWN;
 		}
-		
+
 		return state;
+	}
+
+	public State(){
+		setNowState(State.STATE_RETURN_HOME);
+	}
+
+
+
+
+
+	public int getNowState(){
+		return now;
+	}
+
+	public void setNowState(int nowState){
+		this.now = nowState;
 	}
 
 	public static int findStateIdFromStateText(String state){
@@ -342,10 +363,10 @@ public  class LissUtil {
 		else return STATE_UNKNOWN;
 	}
 
-	
-	
-	
+
+
+
 }
-	
+
 
 }

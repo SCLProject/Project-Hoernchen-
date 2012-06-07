@@ -87,6 +87,9 @@ public class MainLayoutController  implements Initializable{
 			throw new IllegalArgumentException("Memberは最大数です。");
 		}
 
+
+
+
 		master_member.getChildren().add(addNode);
 
 	}

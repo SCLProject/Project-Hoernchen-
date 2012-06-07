@@ -13,6 +13,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
 import jp.ac.oit.sclab.hoernchen.util.LissUtil;
+import jp.ac.oit.sclab.hoernchen.util.LissUtil.State;
 
 public class StudentButton extends Pane{
 
@@ -31,9 +32,13 @@ public class StudentButton extends Pane{
 	StatePopup sPopup = new StatePopup();
 	Popup popup = new Popup();
 
+	State nowState = new State();;
 
 
-	public StudentButton(Stage stage){
+
+
+
+	public StudentButton(Stage stage,Seat user){
 		root = createRootParentFromFXML();
 
 		setEvent();
@@ -42,8 +47,15 @@ public class StudentButton extends Pane{
 		primaryStage = stage;
 
 
+		setAccessTime(user.getRecentAccess());
+		setSeatId(""+user.getSeatId());
+		setState(nowState.getNowState());
+		setParsonName(user.getmStudent().getName());
+
+
+
 	}
-	
+
 	private Point pointPressed;
 	private Point pointMoved;
 
@@ -70,13 +82,13 @@ public class StudentButton extends Pane{
 			@Override
 			public void handle(TouchEvent arg0) {
 				// TODO 自動生成されたメソッド・スタブ
-	/*			
+	/*
 				if(arg0.getEventType().equals(TouchEvent.TOUCH_MOVED)){
-					
+
 				}
-*/					
-					
-					
+*/
+
+
 				if(arg0.getEventType().equals(TouchEvent.TOUCH_PRESSED)){
 
 					pointPressed.setLocation(arg0.getTouchPoint().getScreenX(), arg0.getTouchPoint().getScreenY());

@@ -9,6 +9,15 @@ public class Student {
     private long felicaId;
     private AccessDB db;
 
+
+    	public static final int GRADE_3RD = 0;
+    	public static final int GRADE_4TH = 1;
+    	public static final int GRADE_MASTER = 2;
+    	public static final int GRADE_ETC  = 3;
+
+
+
+
     public  Student(int seatId){
 	db = new AccessDB();
 
@@ -50,7 +59,14 @@ public class Student {
     }
 
     public void setGrade(int grade) {
-	this.grade = grade;
+    	if(grade > GRADE_ETC || grade < GRADE_3RD){
+    		throw new IllegalArgumentException("0-3までの数字を指定");
+
+    	}
+
+
+
+    	this.grade = grade;
     }
 
     public long getFelicaId() {

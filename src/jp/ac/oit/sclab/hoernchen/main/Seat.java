@@ -1,5 +1,9 @@
 package jp.ac.oit.sclab.hoernchen.main;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.ArrayList;
 import jp.ac.oit.sclab.hoernchen.db.AccessDB;
@@ -18,11 +22,15 @@ import jp.ac.oit.sclab.hoernchen.db.AccessDB;
  * @param db データベース:AccessDBクラス
  */
 public class Seat {
+
+	public static final String TIME_STAMP_PATTRN = "yyyy-MM-dd HH:mm:ss";
     private int seatId;
     private int state;
-    private String recentAccess;
+    private Calendar recentAccess;
     private Student mStudent;
     private AccessDB db;
+
+    private SimpleDateFormat sdf = new SimpleDateFormat(TIME_STAMP_PATTRN);
 
     // 在室状況
     public static final int STATE_TAISHITSU = 0;
@@ -43,7 +51,17 @@ public class Seat {
     public Seat(int seatId){
     	db = new AccessDB();
 
-    	setRecentAccess(db.getLastAccessTimeBySeat(seatId));
+
+    	Calendar recentTime = Calendar.getInstance();
+    	try {
+			recentTime.setTime(sdf.parse(db.getLastAccessTimeBySeat(seatId)));
+		} catch (ParseException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+			System.out.println("RecentTime が取得できません。");
+		}
+
+    	setRecentAccess(recentTime);
     	setSeatId(seatId);
     	setState(STATE_TAISHITSU);
     	setmStudent(new Student(seatId));
@@ -91,11 +109,11 @@ public class Seat {
 	this.state = state;
     }
 
-    public String getRecentAccess() {
+    public Calendar getRecentAccess() {
 	return recentAccess;
     }
 
-    public void setRecentAccess(String recentAccess) {
-	this.recentAccess = recentAccess;
+    public void setRecentAccess(Calendar recentTime) {
+	this.recentAccess = recentTime;
     }
 }
