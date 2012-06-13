@@ -28,7 +28,7 @@ public class StudentButton extends Pane{
 	 private double inThreshold = 40.0;// 内側のフリック閾値
 	 private double outThreshold = 150.0;//外側のフリック閾値
 	Stage primaryStage ;
-	StatePopup sPopup = new StatePopup();
+	StatePopup sPopup = new StatePopup(100,300);
 	Popup popup = new Popup();
 
 
@@ -50,12 +50,16 @@ public class StudentButton extends Pane{
 
 	private void setEvent(){
 
-		popup.getContent().addAll(sPopup);
 
 		sPopup.autosize();
+	
+		inThreshold = 50;
+		outThreshold = 200;
+		sPopup = new StatePopup(inThreshold, outThreshold);
+		
+		popup.getContent().addAll(sPopup);
+		
 
-		inThreshold = sPopup.getWidth()/6;
-		outThreshold = sPopup.getWidth()/2;
 
 
 		 pointPressed  = new Point(0,0);
@@ -83,9 +87,7 @@ public class StudentButton extends Pane{
 
 					System.out.println("X:"+arg0.getTouchPoint().getX());
 					System.out.println("Y:"+arg0.getTouchPoint().getY());
-
-					popup.setX(arg0.getTouchPoint().getScreenX()-sPopup.getWidth()/2);
-					popup.setY(arg0.getTouchPoint().getScreenY()-sPopup.getHeight()/2);
+					sPopup.setCenter(arg0.getTouchPoint().getX(), arg0.getTouchPoint().getY());
 					popup.show(primaryStage);
 
 
@@ -109,7 +111,7 @@ public class StudentButton extends Pane{
 
 
 
-/*
+
 		mainPane.addEventFilter(MouseEvent.ANY, new EventHandler<MouseEvent>(){
 
 			@Override
@@ -123,8 +125,9 @@ public class StudentButton extends Pane{
 
 					pointPressed.setLocation(arg0.getX(), arg0.getY());
 
-
-
+					System.out.println("StudentButton:center :" +arg0.getX() + " , " + arg0.getY());
+				//	sPopup.setCenter(arg0.getX(), arg0.getY());
+					sPopup.setCenter(0,0);
 					popup.setX(arg0.getScreenX()-sPopup.getWidth()/2);
 					popup.setY(arg0.getScreenY()-sPopup.getHeight()/2);
 					popup.show(primaryStage);
@@ -139,7 +142,6 @@ public class StudentButton extends Pane{
 				}
 
 				if(arg0.getEventType().equals(MouseEvent.MOUSE_DRAGGED)){
-
 					pointMoved.setLocation(arg0.getX(), arg0.getY());
 					System.out.println("Direction : "+LissUtil.PointDirection.getDirectMovedString(getDirection()));
 
@@ -152,7 +154,7 @@ public class StudentButton extends Pane{
 		});
 
 
-*/
+
 
 	}
 	private int getDirection(){
