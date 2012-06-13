@@ -4,18 +4,9 @@ package jp.ac.oit.sclab.hoernchen.main;
 
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
-import com.sun.scenario.effect.impl.prism.PrImage;
-
 import javafx.application.Application;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.event.Event;
-import javafx.event.EventDispatchChain;
-import javafx.event.EventDispatcher;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -23,7 +14,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 
