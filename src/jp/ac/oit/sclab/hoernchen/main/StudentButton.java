@@ -10,9 +10,11 @@ import javafx.scene.Parent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TouchEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
 import jp.ac.oit.sclab.hoernchen.util.LissUtil;
+import jp.ac.oit.sclab.hoernchen.util.LissUtil.PointDirection;
 
 public class StudentButton extends Pane{
 
@@ -23,6 +25,8 @@ public class StudentButton extends Pane{
 	private final static String fxmlFileName = "item.fxml";
 
 	private Pane mainPane ;
+	Color nonSelectedColor = Color.ORANGE;
+	Color selectedColor = Color.AQUA;
 
 
 	 private double inThreshold = 40.0;// 内側のフリック閾値
@@ -94,7 +98,6 @@ public class StudentButton extends Pane{
 
 
 				}
-				//if(arg0.getEventType().equals(Touch))
 
 
 
@@ -126,10 +129,8 @@ public class StudentButton extends Pane{
 					pointPressed.setLocation(arg0.getX(), arg0.getY());
 
 					System.out.println("StudentButton:center :" +arg0.getX() + " , " + arg0.getY());
-				//	sPopup.setCenter(arg0.getX(), arg0.getY());
-					sPopup.setCenter(0,0);
-					popup.setX(arg0.getScreenX()-sPopup.getWidth()/2);
-					popup.setY(arg0.getScreenY()-sPopup.getHeight()/2);
+					popup.setX(arg0.getSceneX()-outThreshold);
+					popup.setY(arg0.getSceneY()-outThreshold);
 					popup.show(primaryStage);
 
 				}
@@ -144,6 +145,46 @@ public class StudentButton extends Pane{
 				if(arg0.getEventType().equals(MouseEvent.MOUSE_DRAGGED)){
 					pointMoved.setLocation(arg0.getX(), arg0.getY());
 					System.out.println("Direction : "+LissUtil.PointDirection.getDirectMovedString(getDirection()));
+					
+					switch(getDirection()){
+						case PointDirection.STAY:
+							sPopup.setColor(StatePopup.TITLE_OF_CENTER, selectedColor);							
+							break;
+						case PointDirection.UP:
+							sPopup.setColor(StatePopup.TITLE_OF_TOP, selectedColor);
+							break;
+						case PointDirection.DOWN:
+							sPopup.setColor(StatePopup.TITLE_OF_BOTTOM, selectedColor);
+							break;
+						case PointDirection.RIGHT:
+							sPopup.setColor(StatePopup.TITLE_OF_RIGHT, selectedColor);
+							break;
+						case PointDirection.LEFT:
+							sPopup.setColor(StatePopup.TITLE_OF_LEFT, selectedColor);
+							break;
+						case PointDirection.OUT_SIDE:
+							
+						default :
+							sPopup.setColor();
+							
+							
+							
+							
+							
+							
+							
+							break;
+					}
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
 
 
 				}
