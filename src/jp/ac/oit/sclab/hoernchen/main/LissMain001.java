@@ -99,6 +99,18 @@ public class LissMain001 extends Application {
 
         String[] seat  = {"C-001","C-001","C-001","C-001","C-001","C-001","C-001","C-001","C-001","C-001","C-001","C-001","C-001","C-001","C-001",};
 
+        // シーンの生成
+        Scene scene = new Scene(root);
+        
+        // シーンをステージに貼る
+        stage.setScene(scene);
+
+        setScale(stage,root);
+        stage.setFullScreen(true);
+        stage.setResizable(false);
+
+
+
 
         for(int i = 0; i < s.length;i++){
         	final StudentButton sButton = new StudentButton(stage);
@@ -148,17 +160,6 @@ public class LissMain001 extends Application {
 
         Button b = new Button("TEST");
         mlController.setOtherMembar(b);
-
-        setScale(stage,root);
-        // シーンの生成
-        Scene scene = new Scene(root);
-
-        // シーンをステージに貼る
-        stage.setScene(scene);
-        stage.setFullScreen(true);
-        stage.setResizable(false);
-
-
 
         // ステージの表示
         stage.show();

@@ -9,6 +9,7 @@ import javafx.scene.shape.ArcType;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import jp.ac.oit.sclab.hoernchen.util.LissUtil.PointDirection;
 import jp.ac.oit.sclab.hoernchen.util.LissUtil.State;
 
 public class StatePopup extends Pane{
@@ -21,7 +22,6 @@ public class StatePopup extends Pane{
 
 	private Arc[] stateChild = new Arc[4];
 	private Circle stateCircle = new Circle();
-
 
 
 
@@ -45,6 +45,12 @@ public class StatePopup extends Pane{
 
 
 	public StatePopup(double circleLength,double childLength,Color defaultColor){
+		
+			setWidth(childLength*2);
+			setHeight(childLength*2);
+		
+		
+		
 			this.childLength = childLength;
 			this.circleLength = circleLength;
 			this.defaultColor = defaultColor;
@@ -96,7 +102,7 @@ public class StatePopup extends Pane{
 
 		public void setCenterState(int state){
 
-
+			setText(TITLE_OF_CENTER, State.createStateFromStateId(state));
 
 
 
