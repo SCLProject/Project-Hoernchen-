@@ -38,17 +38,28 @@ public class LissMain001 extends Application {
 	private float scaleHeight = 0;
 
 
-	private void setScale(Parent root){
+	private void setScale(Stage stage,Parent root){
         java.awt.GraphicsEnvironment env = java.awt.GraphicsEnvironment.getLocalGraphicsEnvironment();
         java.awt.DisplayMode displayMode = env.getDefaultScreenDevice().getDisplayMode();
         // 変数widthとheightに画面の解像度の幅と高さを代入
         scaleWidth = displayMode.getWidth()/defaultDisplayWidth;
         scaleHeight = displayMode.getHeight()/defaultDisplayHeight;
 
+
+        if(scaleWidth > scaleHeight) {
+        	scaleWidth = scaleHeight;
+        }else{
+        	scaleHeight = scaleWidth;
+        }
+
+
+
+
         root.setScaleX(scaleWidth);
         root.setScaleY(scaleHeight);
 
-
+        stage.setHeight(displayMode.getHeight());
+        stage.setWidth(displayMode.getWidth());
 
 	}
 
@@ -138,7 +149,7 @@ public class LissMain001 extends Application {
         Button b = new Button("TEST");
         mlController.setOtherMembar(b);
 
-        setScale(root);
+        setScale(stage,root);
         // シーンの生成
         Scene scene = new Scene(root);
 
@@ -147,7 +158,7 @@ public class LissMain001 extends Application {
         stage.setFullScreen(true);
         stage.setResizable(false);
 
-        
+
 
         // ステージの表示
         stage.show();
