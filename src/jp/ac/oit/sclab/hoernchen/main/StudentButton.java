@@ -25,19 +25,28 @@ public class StudentButton extends Pane{
 	private final static String fxmlFileName = "item.fxml";
 
 	private Pane mainPane ;
-	Color nonSelectedColor = Color.ORANGE;
+	Color nonSelectedColor = Color.GRAY;
 	Color selectedColor = Color.AQUA;
 
 
-	 private double inThreshold = 40.0;// 内側のフリック閾値
-	 private double outThreshold = 150.0;//外側のフリック閾値
+	 private double inThreshold = 60.0;// 内側のフリック閾値
+	 private double outThreshold = 200.0;//外側のフリック閾値
+
+
+
+
 	Stage primaryStage ;
-	StatePopup sPopup = new StatePopup(100,300);
+	StatePopup sPopup = new StatePopup(100,300,nonSelectedColor);
 	Popup popup = new Popup();
 
+	static public Color getColorWithAlpha(Color color , double alpha){
+		return  Color.rgb((int)(color.getRed()*255),(int)(color.getGreen()*255),(int)(color.getBlue()*255),alpha);
 
+	}
 
 	public StudentButton(Stage stage){
+
+		nonSelectedColor = getColorWithAlpha(nonSelectedColor, 0.8);
 		root = createRootParentFromFXML();
 
 		setEvent();
@@ -47,7 +56,7 @@ public class StudentButton extends Pane{
 
 
 	}
-	
+
 	private Point pointPressed;
 	private Point pointMoved;
 
@@ -56,13 +65,11 @@ public class StudentButton extends Pane{
 
 
 		sPopup.autosize();
-	
-		inThreshold = 50;
-		outThreshold = 200;
-		sPopup = new StatePopup(inThreshold, outThreshold);
-		
+
+		sPopup = new StatePopup(inThreshold, outThreshold,nonSelectedColor);
+
 		popup.getContent().addAll(sPopup);
-		
+
 
 
 
@@ -78,13 +85,13 @@ public class StudentButton extends Pane{
 			@Override
 			public void handle(TouchEvent arg0) {
 				// TODO 自動生成されたメソッド・スタブ
-	/*			
+	/*
 				if(arg0.getEventType().equals(TouchEvent.TOUCH_MOVED)){
-					
+
 				}
-*/					
-					
-					
+*/
+
+
 				if(arg0.getEventType().equals(TouchEvent.TOUCH_PRESSED)){
 
 					pointPressed.setLocation(arg0.getTouchPoint().getScreenX(), arg0.getTouchPoint().getScreenY());
@@ -145,10 +152,10 @@ public class StudentButton extends Pane{
 				if(arg0.getEventType().equals(MouseEvent.MOUSE_DRAGGED)){
 					pointMoved.setLocation(arg0.getX(), arg0.getY());
 					System.out.println("Direction : "+LissUtil.PointDirection.getDirectMovedString(getDirection()));
-					
+
 					switch(getDirection()){
 						case PointDirection.STAY:
-							sPopup.setColor(StatePopup.TITLE_OF_CENTER, selectedColor);							
+							sPopup.setColor(StatePopup.TITLE_OF_CENTER, selectedColor);
 							break;
 						case PointDirection.UP:
 							sPopup.setColor(StatePopup.TITLE_OF_TOP, selectedColor);
@@ -163,28 +170,28 @@ public class StudentButton extends Pane{
 							sPopup.setColor(StatePopup.TITLE_OF_LEFT, selectedColor);
 							break;
 						case PointDirection.OUT_SIDE:
-							
+
 						default :
-							sPopup.setColor();
-							
-							
-							
-							
-							
-							
-							
+							sPopup.setDefaultColor();
+
+
+
+
+
+
+
 							break;
 					}
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
+
+
+
+
+
+
+
+
+
+
 
 
 				}
