@@ -45,8 +45,7 @@ public class MainLayoutController  implements Initializable{
 	@FXML AnchorPane other;
 	@FXML VBox other_member;
 
-	@FXML AnchorPane clockPane;
-	Clock clock;
+	ClockLikeEVA clock;
 
 	final static  String pattern = "YY-MM-dd HH:mm:ss";
 	 SimpleDateFormat sdf = new SimpleDateFormat(pattern);
@@ -181,27 +180,23 @@ public void stop(){
 
 
 
-		clock = new Clock(Color.ORANGERED, Color.valueOf("#6b6a6b"));
-		double clockSizeX = clock.getSizeX();
-		double clockSizeY = clock.getSizeY();
+		clock = new ClockLikeEVA(Color.rgb(255, 204, 0), Color.rgb(0, 0, 0));
+		double clockSizeX = clock.getWidth();
+		double clockSizeY = clock.getHeight();
 
-		double paneSizeX = clockPane.getPrefWidth();
-		double paneSizeY = clockPane.getPrefHeight();
-
-		System.out.println("paneSizeX : "+paneSizeX);
-		System.out.println("paneSizeY : "+paneSizeY);
-		System.out.println("clockSizeX : "+clockSizeX);
-		System.out.println("clockSizeX : "+clockSizeX);
-
+		
+		
+		
+/*
 
 		double layoutX = paneSizeX/2 - clockSizeX/2;
 		double layoutY = paneSizeY/2 - clockSizeY/2;
+*/
 
-
-
-		clock.setLayoutX(layoutX);
-		clock.setLayoutY(layoutY);
-		clockPane.getChildren().add(clock);
+		clock.setLayoutX(0);
+		clock.setLayoutY(0);
+		
+		topPanel.getChildren().add(clock);
 
 
 		clockPlay();
