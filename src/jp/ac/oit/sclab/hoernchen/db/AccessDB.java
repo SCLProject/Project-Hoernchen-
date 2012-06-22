@@ -14,13 +14,17 @@ import java.sql.SQLException;
  * @author Kenta Suetsugu
  */
 public class AccessDB {
-    private final String HOST = "localhost:3306";
-    private final String DB_NAME = "sclab";
-    private final String ENCODE = "useUnicode=true&characterEncoding=UTF-8";
-    private final String DB_URL = "jdbc:mysql://"+ HOST +"/"+ DB_NAME +"?"+ ENCODE;
+    //ディレクトリ (起動した場所から相対的に実行)
+    // TODO それぞれの環境で書き換える必要があるかも。
+    private final String BASE_DIR = "./";
+    private final String PATH = "/db/sqlite.db";
+    private final String DB_URI = "jdbc:sqlite:" + BASE_DIR + PATH;
 
-    private String dbUserName = "sclab";
-    private String dbPass = "sclab";
+    public AccessDB(){
+	// true で残っているデータベース削除してから新規作成
+	// TODO 初期化をコンストラクタで行うか、メソッドとして任意に行うか
+	this.initializeDB(false);
+    }
 
     /**
      * 登録されている座席idをすべて取得する
@@ -35,7 +39,7 @@ public class AccessDB {
         try{
             c = getConnection();
 
-            String sql = "select * from seat_t ";
+            String sql = "select * from seat_t order by seat_id ";
             PreparedStatement pstate
                 = c.prepareStatement(sql);
             ResultSet rs = pstate.executeQuery();
@@ -47,7 +51,7 @@ public class AccessDB {
         } catch (SQLException e){
             e.printStackTrace();
         } finally {
-           try{
+	    try{
                 if(c != null) c.close();
             } catch (Exception e){
                 e.printStackTrace();
@@ -60,24 +64,25 @@ public class AccessDB {
      * 座席に所属している人のfelicaIDを返す
      *
      * @param seatId 座席番号
-     * @return 成功 long felicaId 失敗 -1
+     * @return 成功 String felicaId 失敗 long -1
      */
-    public long getFelicaIdBySeat (int seatID) {
-	long felicaId = -1;
+    public long getFelicaIdBySeat(int seatID) {
+	String felicaId = "-1";
 	Connection c = null;
 
 	try{
 	    c = getConnection();
 
 	    String sql =
-		"select * from felica_t natural join seat_t "+
-		"where seat_id = ?";
-	    PreparedStatement pstate
-		= c.prepareStatement(sql);
+		"select * from felica_t inner join seat_t "
+		+" on felica_t.user_id = seat_t.user_id"
+		+" where seat_id == ?";
+	    PreparedStatement pstate = c.prepareStatement(sql);
 	    pstate.setInt(1, seatID);
 	    ResultSet rs = pstate.executeQuery();
-	    if(rs.first())
-		felicaId = rs.getLong("felica_id");
+	    if(rs.next()){
+		felicaId = rs.getString("felica_id");
+	    }
 
 	} catch (SQLException e){
 	    e.printStackTrace();
@@ -88,8 +93,7 @@ public class AccessDB {
 		e.printStackTrace();
 	    }
 	}
-
-	return felicaId;
+	return Long.parseLong(felicaId);
     }
 
     /**
@@ -106,13 +110,13 @@ public class AccessDB {
 	    c = getConnection();
 
 	    String sql =
-		"select * from parson_t natural join seat_t "+
+		"select * from parson_t natural inner join seat_t "+
 		"where seat_id = ?";
 	    PreparedStatement pstate
 		= c.prepareStatement(sql);
 	    pstate.setInt(1, seatID);
 	    ResultSet rs = pstate.executeQuery();
-	    if(rs.first())
+	    if(rs.next())
 		grade = rs.getInt("grade");
 
 	} catch (SQLException e){
@@ -142,13 +146,13 @@ public class AccessDB {
 	    c = getConnection();
 
 	    String sql =
-		"select * from parson_t natural join seat_t "+
+		"select * from parson_t natural inner join seat_t "+
 		"where seat_id = ?";
 	    PreparedStatement pstate
 		= c.prepareStatement(sql);
 	    pstate.setInt(1, seatID);
 	    ResultSet rs = pstate.executeQuery();
-	    if(rs.first())
+	    if(rs.next())
 		userId = rs.getString("user_id");
 
 	} catch (SQLException e){
@@ -178,13 +182,14 @@ public class AccessDB {
 	    c = getConnection();
 
 	    String sql =
-		"select * from parson_t natural join seat_t "+
+		"select * from parson_t natural inner join seat_t "+
 		"where seat_id = ?";
 	    PreparedStatement pstate
 		= c.prepareStatement(sql);
 	    pstate.setInt(1, seatID);
 	    ResultSet rs = pstate.executeQuery();
-	    if(rs.first())
+
+	    if(rs.next())
 		userName = rs.getString("name");
 
 	} catch (SQLException e){
@@ -220,7 +225,7 @@ public class AccessDB {
 		= c.prepareStatement(sql);
 	    pstate.setInt(1, seatId);
 	    ResultSet rs = pstate.executeQuery();
-	    if(rs.first())
+	    if(rs.next())
 		time = rs.getString("time");
 
 	} catch (SQLException e){
@@ -249,13 +254,13 @@ public class AccessDB {
 	    c = getConnection();
 
 	    String sql =
-		"select * from seat_t natural join felica_t"+
+		"select * from seat_t natural inner join felica_t"+
 		"where felica_id = ?";
 	    PreparedStatement pstate
 		= c.prepareStatement(sql);
 	    pstate.setInt(1, felicaID);
 	    ResultSet rs = pstate.executeQuery();
-	    if(rs.first())
+	    if(rs.next())
 		seat = rs.getInt("seat_id");
 
 	} catch (SQLException e){
@@ -277,7 +282,7 @@ public class AccessDB {
      * @param felicaID FelicaカードのID
      * @return 成功したらtrue
      */
-    public boolean setFelica(int userID, int felicaID){
+    public boolean setFelica(String userID, int felicaID){
 	boolean isSuccess = false;
 	Connection c = null;
 
@@ -285,12 +290,12 @@ public class AccessDB {
 	    c = getConnection();
 
 	    String sql =
-		"update felica_t set felica_id = ?, user_id = ?";
+		"update felica_t set felica_id = ? where user_id = ?";
 
 	    PreparedStatement pstate =
 		c.prepareStatement(sql);
 	    pstate.setInt(1, felicaID);
-	    pstate.setInt(2, userID);
+	    pstate.setString(2, userID);
 
 	    pstate.executeUpdate();
 	    isSuccess = true;
@@ -326,7 +331,7 @@ public class AccessDB {
 	    String sql =
 		"update seat_t set user_id = ? where seat_id = ?";
 	    PreparedStatement pstate =
-            c.prepareStatement(sql);
+		c.prepareStatement(sql);
 	    pstate.setString(1, userID);
 	    pstate.setInt(2, seatID);
 	    pstate.executeUpdate();
@@ -362,7 +367,7 @@ public class AccessDB {
 	    c = getConnection();
 
 	    String sql =
-		"insert into log_t (seat_id, state) values(?, ?)";
+		"insert into log_t(seat_id, state) values(?, ?)";
 	    PreparedStatement pstate =
 		c.prepareStatement(sql);
 	    pstate.setInt(1, seatID);
@@ -393,25 +398,24 @@ public class AccessDB {
      * @param grade
      * @return 成功したらtrue
      */
-   public boolean addStudent(String userID, String name, int grade){
+    public boolean addStudent(String userID, String name, int grade){
 	boolean isSuccess = false;
 	Connection c = null;
 
 	try{
 	    c = getConnection();
 
-	    String sql =
+	    System.out.println("addStudent: into parson.");
+	    String parson_sql =
 		"insert into parson_t (user_id, name, grade) values(?, ?, ?)";
-
 	    PreparedStatement pstate =
-		c.prepareStatement(sql);
+		c.prepareStatement(parson_sql);
 	    pstate.setString(1, userID);
 	    pstate.setString(2, name);
 	    pstate.setInt(3, grade);
 	    pstate.executeUpdate();
 
 	    isSuccess = true;
-
 	    if(isSuccess) c.commit();
 
 	} catch (SQLException e){
@@ -432,7 +436,7 @@ public class AccessDB {
      * @param userID 学籍番号
      * @return 成功したらtrue
      */
-   public boolean delStudent(String userID){
+    public boolean delStudent(String userID){
 	boolean isSuccess = false;
 	Connection c = null;
 
@@ -447,7 +451,7 @@ public class AccessDB {
 		"delete from parson_t where user_id = ?";
 
 	    PreparedStatement pstate =
-            c.prepareStatement(delFelicaSql);
+		c.prepareStatement(delFelicaSql);
 	    pstate.setString(1, userID);
 	    pstate.executeUpdate();
 
@@ -475,8 +479,61 @@ public class AccessDB {
 	return isSuccess;
     }
 
+    /**
+     * table削除のSQL群を返す
+     *
+     * @return String[]
+     */
+    private String[] getDropTableSqls(){
+	String[] sql = 
+	    {
+		"drop table if exists log_t",
+		"drop table if exists felica_t",
+		"drop table if exists seat_t",
+		"drop table if exists parson_t"
+	    };
+
+	return sql;
+    }
+
+    /**
+     * table作成のSQL文群を返す
+     *
+     * @return String[]
+     */
+    private String[] getCreateTableSqls(){
+	String[] sql = {
+	    // parson_t (人物データベース)
+	    "create table if not exists parson_t("+
+	    "user_id varchar(6) primary key, "+
+	    "name varchar(20), "+
+	    "grade numeric(1))",
+	    // seat_t (席情報データベース)
+	    "create table if not exists seat_t("+
+	    "seat_id text primary key, "+
+	    "user_id varchar(6), "+
+	    "foreign key(user_id) references parson_t(user_id))",
+	    // felica_t (felicaカードデータベース)
+	    "create table if not exists felica_t("+
+	    "felica_id integer primary key, "+
+	    "user_id varchar(6), "+
+	    "foreign key(user_id) references parson_t(user_id))",
+	    // log_t (ログデータベース)
+	    "create table if not exists log_t("+
+	    "log_id  integer primary key autoincrement, "+
+	    "seat_id integer, "+
+	    "time    timestamp DEFAULT (DATETIME('now', 'localtime')), "+
+	    "state   numeric(1))",
+	};
+
+	return sql;
+    }
+    
+    /**
+     * テーブルがない場合のデータベースの作成
+     * フラグによる、強制削除からの作成を行える。
+     */
     protected void initializeDB(boolean forceCreate) {
-	// TODO データベースを作ってない場合の初期化の実装
 	Connection c = null;
 	try {
 	    if ((c = getConnection()) == null) {
@@ -486,12 +543,19 @@ public class AccessDB {
 	    Statement stmt = c.createStatement();
 	    stmt.setQueryTimeout(30);
 
+	    // 引数が true の時、テーブル削除
 	    if (forceCreate) {
-		// drop tables
+		String[] dropSqls = getDropTableSqls();
+		
+		for(String sql : dropSqls){
+		    stmt.executeUpdate(sql);
+		}
 	    }
 
-	    {
-		// create tables
+	    // テーブル作成
+	    String[] createSqls = getCreateTableSqls();
+	    for(String sql : createSqls){
+		stmt.executeUpdate(sql);
 	    }
 
 	    c.commit();
@@ -506,11 +570,14 @@ public class AccessDB {
 	}
     }
 
+    /**
+     * DB との接続を返す
+     */
     protected Connection getConnection() throws SQLException {
 	Connection c = null;
 	try {
-	    Class.forName("com.mysql.jdbc.Driver");
-	    c = DriverManager.getConnection(DB_URL, dbUserName, dbPass);
+	    Class.forName("org.sqlite.JDBC");
+	    c = DriverManager.getConnection(DB_URI);
 	    c.setAutoCommit(false);
 	    return c;
 	} catch (ClassNotFoundException e){
