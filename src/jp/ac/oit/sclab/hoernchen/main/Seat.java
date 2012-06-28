@@ -78,11 +78,12 @@ public class Seat {
 
     	ArrayList<Seat> list = new ArrayList<Seat>();
     	Iterator<Integer> it = db.getAllSeatId().iterator();
-    	System.out.println("seats length : "+list.size());
     	while(it.hasNext()){
     		Integer seatId = it.next();
-    		list.add( new Seat(seatId.intValue()) );
-    		System.out.println(""+seatId.intValue());
+    		// seatId と ユーザーが紐付いてない場合 seatを生成しない
+    		// TODO 要議論 (seatオブジェクトを生成しない か GUIでnull対応するか)
+    		if(db.getUserIdBySeat(seatId.intValue()) == "null")
+    			list.add( new Seat(seatId.intValue()) );
     	}
     	return list;
     }
