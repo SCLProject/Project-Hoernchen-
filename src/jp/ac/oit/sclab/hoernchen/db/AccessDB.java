@@ -17,7 +17,7 @@ public class AccessDB {
     //ディレクトリ (起動した場所から相対的に実行)
     // TODO それぞれの環境で書き換える必要があるかも。
     private final String BASE_DIR = "./";
-    private final String PATH = "/db/sqlite.db";
+    private final String PATH = "/sqlite.db";
     private final String DB_URI = "jdbc:sqlite:" + BASE_DIR + PATH;
 
     public AccessDB(){
@@ -485,7 +485,7 @@ public class AccessDB {
      * @return String[]
      */
     private String[] getDropTableSqls(){
-	String[] sql = 
+	String[] sql =
 	    {
 		"drop table if exists log_t",
 		"drop table if exists felica_t",
@@ -528,7 +528,7 @@ public class AccessDB {
 
 	return sql;
     }
-    
+
     /**
      * テーブルがない場合のデータベースの作成
      * フラグによる、強制削除からの作成を行える。
@@ -546,7 +546,7 @@ public class AccessDB {
 	    // 引数が true の時、テーブル削除
 	    if (forceCreate) {
 		String[] dropSqls = getDropTableSqls();
-		
+
 		for(String sql : dropSqls){
 		    stmt.executeUpdate(sql);
 		}

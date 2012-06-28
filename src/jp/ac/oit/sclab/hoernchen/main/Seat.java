@@ -54,6 +54,7 @@ public class Seat {
 
     	Calendar recentTime = Calendar.getInstance();
     	try {
+    		System.out.println(""+db.getLastAccessTimeBySeat(seatId));
 			recentTime.setTime(sdf.parse(db.getLastAccessTimeBySeat(seatId)));
 		} catch (ParseException e) {
 			// TODO 自動生成された catch ブロック
@@ -77,10 +78,11 @@ public class Seat {
 
     	ArrayList<Seat> list = new ArrayList<Seat>();
     	Iterator<Integer> it = db.getAllSeatId().iterator();
-
+    	System.out.println("seats length : "+list.size());
     	while(it.hasNext()){
     		Integer seatId = it.next();
     		list.add( new Seat(seatId.intValue()) );
+    		System.out.println(""+seatId.intValue());
     	}
     	return list;
     }
