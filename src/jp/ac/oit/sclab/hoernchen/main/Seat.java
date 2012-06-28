@@ -82,7 +82,7 @@ public class Seat {
     		Integer seatId = it.next();
     		// seatId と ユーザーが紐付いてない場合 seatを生成しない
     		// TODO 要議論 (seatオブジェクトを生成しない か GUIでnull対応するか)
-    		if(db.getUserIdBySeat(seatId.intValue()) == "null")
+    		if(db.getUserIdBySeat(seatId.intValue()) != null)
     			list.add( new Seat(seatId.intValue()) );
     	}
     	return list;

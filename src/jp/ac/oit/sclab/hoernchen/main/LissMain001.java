@@ -56,10 +56,10 @@ public class LissMain001 extends Application {
 
 
         List<Seat> seats = Seat.getSeatArrayList();
-
+        System.out.println("seats size : "+seats.size());
         int grade;
 
-        
+
 
 
 
@@ -67,6 +67,7 @@ public class LissMain001 extends Application {
         for(Seat seat : seats){
 
         	grade = seat.getmStudent().getGrade();
+        	System.out.println("grade : "+grade);
 
         	switch(grade){
 
@@ -98,32 +99,7 @@ public class LissMain001 extends Application {
 
         	}
 
-
-
-
-
-
-
-
-
-
-
-
-
         }
-
-
-
-
-
-
-
-
-
-
-
-        Button b = new Button("TEST");
-        mlController.setOtherMembar(b);
 
 
         // シーンの生成

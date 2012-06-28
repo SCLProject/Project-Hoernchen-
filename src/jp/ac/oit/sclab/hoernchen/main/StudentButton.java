@@ -29,8 +29,8 @@ public class StudentButton extends Pane{
 	private final static String fxmlFileName = "item.fxml";
 
 	private Pane mainPane ;
-	Color nonSelectedColor = Color.SKYBLUE;
-	Color selectedColor = Color.AQUA;
+	Color nonSelectedColor = getColorWithAlpha(Color.SKYBLUE, 0.7);
+	Color selectedColor = getColorWithAlpha(Color.AQUA,0.9);
 
 
 	 private double inThreshold = 60.0;// 内側のフリック閾値

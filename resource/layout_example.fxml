@@ -7,9 +7,9 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.*?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns:fx="http://javafx.com/fxml" fx:controller="jp.ac.oit.sclab.hoernchen.main.MainLayoutController">
+<AnchorPane id="AnchorPane" fx:id="anchor_main" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" style=".button{&#10;  -fx-base: goldenrod;&#10;  -fx-background-color: black;&#10;  -fx-padding:10;&#10;  -fx-font-family:&quot;Helvetica&quot;;&#10;  -fx-font-size:15px;&#10;  -fx-font-weight: bold;&#10;  -fx-text-fill: white;&#10;}&#10;" xmlns:fx="http://javafx.com/fxml" fx:controller="jp.ac.oit.sclab.hoernchen.main.MainLayoutController">
   <children>
-    <AnchorPane id="anchorPane1" fx:id="topPanel" layoutX="14.0" layoutY="14.0" prefHeight="130.0" prefWidth="1892.0">
+    <AnchorPane id="anchorPane1" fx:id="topPanel" layoutX="14.0" layoutY="14.0" prefHeight="130.0" prefWidth="1892.0" style="  -fx-base: goldenrod;&#10;  -fx-background-color: black;&#10;  -fx-background-radius: 25;&#10;  -fx-padding:10;&#10;  -fx-font-family:&quot;Helvetica&quot;;&#10;  -fx-font-size:15px;&#10;  -fx-font-weight: bold;&#10;&#10;">
       <children>
         <AnchorPane id="anchorPane6" fx:id="teacherPanel" layoutX="14.0" layoutY="14.0" prefHeight="72.0" prefWidth="364.0" />
       </children>

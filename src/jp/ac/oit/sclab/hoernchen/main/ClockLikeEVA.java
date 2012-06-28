@@ -18,22 +18,22 @@ public class ClockLikeEVA extends Parent{
 	private double sizeY = 0;
 	private double sizeX = 0;
 
-	private float normalDigitScaleX = 1.0f;
-	private float normalDigitScaleY = 1.0f;
+	private float normalDigitScaleX = 0.8f;
+	private float normalDigitScaleY = 0.8f;
 	private float bigDigitScaleX = 1.0f;
 	private float bigDigitScaleY = 1.0f;
-	
-	
-	
-	private float[] digitLayoutX = 
-		{ 	100, 125, 
-			150, 175, 
-			210, 235, 
-			270, 295, 
-			335, 370, 
-			410, 445, 
+
+
+
+	private float[] digitLayoutX =
+		{ 	100, 125,
+			150, 175,
+			210, 235,
+			270, 295,
+			335, 370,
+			410, 445,
 			485, 510};
-	private float[] digitLayoutY = 
+	private float[] digitLayoutY =
 		{  30,  30,  30,  30,  30,  30,  30,  30,  15,  15,  15,  15,  30,  30};
 	private float[] digitScaleX ={
 			normalDigitScaleX,normalDigitScaleX,
@@ -53,17 +53,17 @@ public class ClockLikeEVA extends Parent{
 			bigDigitScaleY,bigDigitScaleY,
 			normalDigitScaleY,normalDigitScaleY
 			};
-	
-	
-	
-	
-	
+
+
+
+
+
 	private float[] hyphenLayoutX;
 	private float hyphenLayoutY;
-	
+
 	private float[] colonLayoutX;
 	private float[] colonLayoutY;
-	
+
 
 
 	public ClockLikeEVA(Color onColor,Color offColor) {
@@ -73,77 +73,81 @@ public class ClockLikeEVA extends Parent{
 		onEffect.setInput(new InnerShadow());
 		InnerShadow offEffect = new InnerShadow();
 
-		
+
 		Glow onDotEffect = new Glow(1.7f);
 		onDotEffect.setInput(new InnerShadow(5,Color.BLACK));
 
 		digits = new Digit[14];
 
-		
-		
-		
+
+
+
 		for(int i = 0;i<digits.length;i++){
-			
+
 			Digit digit = new Digit(onColor,offColor,onEffect,offEffect);
-			digit.setLayoutX(digitLayoutX[i]);
+			digit.setScaleX(digitScaleX[i]);
+			digit.setScaleY(digitScaleY[i]);
+			digit.setLayoutX(digitLayoutX[i]*3);
 			digit.setLayoutY(digitLayoutY[i]);
-			
-			
+
+
 			digits[i] = digit;
 			getChildren().add(digit);
-			
+
 		}
-		
+
 		sizeX  = digitLayoutX[digits.length-1]+20;
 		sizeY = digitLayoutY[digits.length-1]+43;
-		
-		
+
+
+
+
 		double base1 = 200;
 		double base2 = 260;
 		Group hyphens = new Group(
-				
+
 				new Polygon(base1 + 0,52,base1 + 7,52,base1 + 7,56,base1 + 0,56),
-				
+
 				new Polygon(base2 + 0,52,base2 + 7,52,base2 + 7,56,base2 + 0,56)
-				
+
 				);
-		
+
 		Group dots = new Group(
-				
+
 				new Polygon (402,30,406,30,406,34,402,34),
-				
+
 				new Polygon (402,30+27,406,30+27,406,34+27,402,34+27),
-				
+
 				new Polygon (477,43,480,43,480,46,477,46),
-				
-				new Polygon (477,43+18,480,43+18,480,46+18,477,46+18)			
-				
-				
+
+				new Polygon (477,43+18,480,43+18,480,46+18,477,46+18)
+
+
 				);
-		
+
 		hyphens.setEffect(onDotEffect);
 		dots.setEffect(onDotEffect);
-		
-		
+
+
 		getChildren().add(hyphens);
 		getChildren().add(dots);
-		
-		
-		
-		
-		
-		
-		
-		
-		
+
+
+
+
+
+
+
+
+
 	}
 
 
-	
+
 	public void refreshClocks(){
-	
+
 		nowCalendar = Calendar.getInstance();
-		
+
 		int year = nowCalendar.get(Calendar.YEAR);
 		int month = nowCalendar.get(Calendar.MONTH)+1;
 		int day = nowCalendar.get(Calendar.DATE);
@@ -151,7 +155,7 @@ public class ClockLikeEVA extends Parent{
 		int minute = nowCalendar.get(Calendar.MINUTE);
 		int second = nowCalendar.get(Calendar.SECOND);
 
-		
+
 		digits[0].showNumber(year/1000);
 		digits[1].showNumber((year%1000)/100);
 		digits[2].showNumber((year%100)/10);
@@ -167,13 +171,13 @@ public class ClockLikeEVA extends Parent{
 		digits[12].showNumber(second/10);
 		digits[13].showNumber(second%10);
 
-		
-		
-		
-		
-		
-		
-		
+
+
+
+
+
+
+
 	}
 
 	public double getWidth(){
@@ -231,7 +235,7 @@ public class ClockLikeEVA extends Parent{
 
 				new Polygon(10,81,18,73,57,73,65,81,57,89,18,89),
 
-				new Polygon(10,54,18,146,57,146,65,154,57,163,18,163),
+				new Polygon(10,154,18,146,57,146,65,154,57,163,18,163),
 
 				new Polygon(0,19,8,11,16,19,16,71,8,79,0,71),
 
@@ -239,12 +243,12 @@ public class ClockLikeEVA extends Parent{
 
 				new Polygon(0,91,8,83,16,91,16,144,8,152,0,144),
 
-				new Polygon(59,91,67,83,74,91,74,144,57,157,59,144),
+				new Polygon(59,91,67,83,74,91,74,144,67,152,59,144),
 
 
 		};
 
-		
+
 
 		public Digit(Color onColor,Color offColor,Effect onEffect,Effect offEffect){
 			this.onColor = onColor;
@@ -256,7 +260,7 @@ public class ClockLikeEVA extends Parent{
 		}
 
 		public void showNumber(int num){
-			
+
 			if(0<= num && num <= 9){
 				for(int i = 0;i < 7;i++){
 					polygons[i].setFill(DIGIT_COMBINATIONS[num][i] ? onColor:offColor);
