@@ -3,24 +3,34 @@ package jp.ac.oit.sclab.hoernchen.main;
 
 
 
+
 import java.io.IOException;
+import java.net.URL;
 import java.util.List;
+
+
 
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.LabelBuilder;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.text.Font;
+import javafx.stage.Popup;
 import javafx.stage.Stage;
+import jp.ac.oit.sclab.hoernchen.main.setting.RegistStudentInfoController;
 
 
 
 public class LissMain001 extends Application {
 
 	private static final String fxmlFileName = "layout_example.fxml";
+	private static final String subFxmlFileName ="regist_window.fxml";
 	MainLayoutController mlController = null;
 
 
@@ -43,6 +53,47 @@ public class LissMain001 extends Application {
 					System.exit(0);
 				if(arg0.isAltDown()&&arg0.getCode().equals(KeyCode.ENTER))
 					stage.setFullScreen( !stage.isFullScreen() );
+
+
+				if(arg0.isShiftDown() && arg0.getCode().equals(KeyCode.F1)){
+
+					Popup subStage = new Popup();
+					FXMLLoader subFXMLLoader = new FXMLLoader();
+					subFXMLLoader.setLocation(getClass().getClassLoader().getResource(subFxmlFileName));
+					Parent subRoot;
+					try {
+						subRoot = (Parent) subFXMLLoader.load();
+
+						subStage.getContent().addAll(subRoot);
+						subStage.centerOnScreen();
+						subStage.show(stage);
+						RegistStudentInfoController rsic = subFXMLLoader.getController();
+						rsic.setPopup(subStage);
+
+
+
+
+
+
+
+					} catch (IOException e) {
+						// TODO 自動生成された catch ブロック
+						e.printStackTrace();
+					}
+
+
+
+
+
+
+
+
+				}
+
+
+
+
+
 			}
 		});
 

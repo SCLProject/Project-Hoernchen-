@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.collections.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="640.0" xmlns:fx="http://javafx.com/fxml">
+  <children>
+    <Label id="label1" layoutX="14.0" layoutY="14.0" prefHeight="32.0" prefWidth="280.0" text="学生情報登録">
+      <font>
+        <Font size="24.0" />
+      </font>
+    </Label>
+    <Label id="label2" layoutX="177.0" layoutY="111.0" prefHeight="32.0" prefWidth="78.0" text="種別" />
+    <Label id="label2" layoutX="177.0" layoutY="170.0" prefHeight="32.0" prefWidth="78.0" text="席番号" />
+    <Label id="label2" layoutX="177.0" layoutY="325.0" prefHeight="32.0" prefWidth="78.0" text="Felica" />
+    <Label id="label2" layoutX="177.0" layoutY="226.0" prefHeight="32.0" prefWidth="78.0" text="学籍番号" />
+    <Label id="label2" layoutX="177.0" layoutY="277.0" prefHeight="32.0" prefWidth="78.0" text="表示名" />
+    <ComboBox id="comboBox1" fx:id="type_comb" layoutX="281.0" layoutY="111.0" prefHeight="32.0" prefWidth="78.0" promptText="学年">
+      <items>
+        <FXCollections fx:factory="observableArrayList">
+          <String fx:value="Item 1" />
+          <String fx:value="Item 2" />
+          <String fx:value="Item 3" />
+        </FXCollections>
+      </items>
+    </ComboBox>
+    <ComboBox id="comboBox1" fx:id="seat_comb" layoutX="281.0" layoutY="168.0" prefHeight="32.0" prefWidth="128.00009999999747">
+      <items>
+        <FXCollections fx:factory="observableArrayList">
+          <String fx:value="Item 1" />
+          <String fx:value="Item 2" />
+          <String fx:value="Item 3" />
+        </FXCollections>
+      </items>
+    </ComboBox>
+    <TextField id="textField1" fx:id="studentNum_text" layoutX="281.0" layoutY="224.0" prefHeight="32.0" prefWidth="206.0" promptText="A00000" />
+    <TextField id="textField1" fx:id="name_text" layoutX="281.0" layoutY="275.0" prefHeight="32.0" prefWidth="206.0" promptText="工大 太郎" />
+    <ComboBox id="comboBox1" fx:id="felica_comb" layoutX="281.0" layoutY="325.0" prefHeight="32.0" prefWidth="206.0" promptText="登録なし">
+      <items>
+        <FXCollections fx:factory="observableArrayList">
+          <String fx:value="Item 1" />
+          <String fx:value="Item 2" />
+          <String fx:value="Item 3" />
+        </FXCollections>
+      </items>
+    </ComboBox>
+    <Button id="button1" fx:id="felica_plus" layoutX="501.0" layoutY="325.0" prefHeight="32.0" prefWidth="32.0" text="＋" />
+    <Button id="button2" fx:id="felica_minus" layoutX="546.0" layoutY="325.0" prefHeight="32.0" prefWidth="32.0" text="-" />
+    <Button id="button1" fx:id="ok_button" defaultButton="true" layoutX="498.0" layoutY="434.0" prefHeight="32.0" prefWidth="128.0" text="完了" />
+  </children>
+</AnchorPane>
