@@ -61,6 +61,42 @@ public class AccessDB {
     }
 
     /**
+     * Grade(学年)から座席idをすべて取得する
+     *
+     * @param grade 学年
+     * @return ArrayList 学年とあった席番号リストを返す
+     */
+    public ArrayList<Integer> getSeatIdListByGrade(int grade){
+	ArrayList<Integer> list
+            = new ArrayList<Integer>();
+        Connection c = null;
+
+        try{
+            c = getConnection();
+
+            String sql = "select * from seat_t, parson_t where seat_t.user_id = parson_t.user_id and grade = ?";
+            PreparedStatement pstate
+                = c.prepareStatement(sql);
+	    pstate.setInt(1 , grade);
+            ResultSet rs = pstate.executeQuery();
+
+            while(rs.next()){
+                list.add(rs.getInt("seat_id"));
+            }
+
+        } catch (SQLException e){
+            e.printStackTrace();
+        } finally {
+	    try{
+                if(c != null) c.close();
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+        return list;
+    }
+
+    /**
      * 座席に所属している人のfelicaIDを返す
      *
      * @param seatId 座席番号
