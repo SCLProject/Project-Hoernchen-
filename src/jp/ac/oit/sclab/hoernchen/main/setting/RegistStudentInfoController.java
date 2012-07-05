@@ -10,16 +10,18 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.LabelBuilder;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
 import javafx.stage.Popup;
 
 public class RegistStudentInfoController  implements Initializable{
-	@FXML ComboBox<Label> type_comb;
+	@FXML ComboBox<String> type_comb;
 
 
-	@FXML ComboBox<Label> seat_comb;
-	@FXML ComboBox<Label> felica_comb;
+	@FXML ComboBox<String> seat_comb;
+	@FXML ComboBox<String> felica_comb;
 	@FXML TextField studentNum_text;
 	@FXML TextField name_text;
 	@FXML Button felica_plus;
@@ -40,8 +42,8 @@ public class RegistStudentInfoController  implements Initializable{
 			// TODO 自動生成されたメソッド・スタブ
 			if(type_comb.getValue() != null){
 
-				debug_label.setText(type_comb.getValue().getText());
 
+				debug(""+type_comb.getValue());
 
 
 			}
@@ -49,7 +51,10 @@ public class RegistStudentInfoController  implements Initializable{
 
 	};
 
-
+	private void debug(String text){
+		debug_label.setText("debug : "+ text);
+		System.out.println("debug : "+text);
+	}
 
 
 
@@ -119,15 +124,21 @@ public class RegistStudentInfoController  implements Initializable{
 		type_comb.getItems().clear();
 		felica_comb.getItems().clear();
 		seat_comb.getItems().clear();
+		type_comb.setOnAction(typeCombEvent);
+
+
+
+		debug("TEXT");
+
+
+
 
 
 
 
 		if(type_comb.getItems().size()<1){
 
-			type_comb.getItems().add(new Label("TEST"));
-
-
+			type_comb.getItems().setAll("TEST01","TEST02");
 
 		}
 
