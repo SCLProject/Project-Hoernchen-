@@ -51,6 +51,7 @@
     </ComboBox>
     <Button id="button1" fx:id="felica_plus" layoutX="501.0" layoutY="325.0" prefHeight="32.0" prefWidth="32.0" text="＋" />
     <Button id="button2" fx:id="felica_minus" layoutX="546.0" layoutY="325.0" prefHeight="32.0" prefWidth="32.0" text="-" />
+    <Button id="button3" layoutX="346.0" layoutY="434.0" prefHeight="32.0" prefWidth="128.0" text="適用" />
     <Button id="button1" fx:id="ok_button" defaultButton="true" layoutX="498.0" layoutY="434.0" prefHeight="32.0" prefWidth="128.0" text="完了" />
   </children>
 </AnchorPane>

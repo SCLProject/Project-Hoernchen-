@@ -28,8 +28,29 @@ public class RegistStudentInfoController  implements Initializable{
 	@FXML Button felica_minus;
 	@FXML Button ok_button;
 
-
+	@FXML Button apply_button;
 	Popup popup = null;
+
+	EventHandler<MouseEvent> applyButtonEvent = new EventHandler<MouseEvent>() {
+
+		@Override
+		public void handle(MouseEvent event) {
+			// TODO 自動生成されたメソッド・スタブ
+			if(event.getEventType().equals(MouseEvent.MOUSE_CLICKED)){
+
+
+
+
+
+
+
+
+
+			}
+		}
+	};
+
+
 
 
 
@@ -73,7 +94,20 @@ public class RegistStudentInfoController  implements Initializable{
 
 		System.out.println("debug");
 
+		type_comb.getItems().clear();
+		felica_comb.getItems().clear();
+		seat_comb.getItems().clear();
 
+
+
+
+		if(type_comb.getItems().size()<1){
+
+			type_comb.getItems().add(new Label("TEST"));
+
+
+
+		}
 
 
 
