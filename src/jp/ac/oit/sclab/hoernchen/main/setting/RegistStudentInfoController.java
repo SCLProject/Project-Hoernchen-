@@ -3,7 +3,7 @@ package jp.ac.oit.sclab.hoernchen.main.setting;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import javafx.event.Event;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -13,7 +13,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Popup;
-import javafx.stage.Stage;
 
 public class RegistStudentInfoController  implements Initializable{
 	@FXML ComboBox<Label> type_comb;
@@ -25,11 +24,34 @@ public class RegistStudentInfoController  implements Initializable{
 	@FXML TextField name_text;
 	@FXML Button felica_plus;
 
+	@FXML Label debug_label;
+
+
 	@FXML Button felica_minus;
 	@FXML Button ok_button;
 
 	@FXML Button apply_button;
 	Popup popup = null;
+
+	EventHandler<ActionEvent> typeCombEvent = new EventHandler<ActionEvent>(){
+
+		@Override
+		public void handle(ActionEvent event) {
+			// TODO 自動生成されたメソッド・スタブ
+			if(type_comb.getValue() != null){
+
+				debug_label.setText(type_comb.getValue().getText());
+
+
+
+			}
+		}
+
+	};
+
+
+
+
 
 	EventHandler<MouseEvent> applyButtonEvent = new EventHandler<MouseEvent>() {
 
