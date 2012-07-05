@@ -3,6 +3,7 @@ package jp.ac.oit.sclab.hoernchen.main.setting;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -34,6 +35,17 @@ public class RegistStudentInfoController  implements Initializable{
 
 
 
+	private void setStudentName(String name){
+		name_text.setText(name);
+	}
+	private void setStudentNumber(String number){
+		studentNum_text.setText(number);
+	}
+
+
+
+
+
 
 	public void setPopup(final Popup popup){
 
@@ -53,12 +65,6 @@ public class RegistStudentInfoController  implements Initializable{
 	}
 
 
-	public void setOKButtonHandle(EventHandler<MouseEvent> eHandle){
-	}
-	public Button getOKButton(){
-		return ok_button;
-	}
-
 
 
 	@Override
@@ -66,6 +72,13 @@ public class RegistStudentInfoController  implements Initializable{
 		// TODO 自動生成されたメソッド・スタブ
 
 		System.out.println("debug");
+
+
+
+
+
+
+
 
 
 

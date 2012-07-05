@@ -71,29 +71,12 @@ public class LissMain001 extends Application {
 						rsic.setPopup(subStage);
 
 
-
-
-
-
-
 					} catch (IOException e) {
 						// TODO 自動生成された catch ブロック
 						e.printStackTrace();
 					}
 
-
-
-
-
-
-
-
 				}
-
-
-
-
-
 			}
 		});
 
