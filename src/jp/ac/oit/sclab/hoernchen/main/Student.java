@@ -64,7 +64,7 @@ public class Student {
 
     public void setGrade(int grade) {
     	if(grade > GRADE_ETC || grade < GRADE_3RD){
-    		throw new IllegalArgumentException("0-3までの数字を指定");
+    		throw new IllegalArgumentException("0-3までの数字を指定 : "+grade);
 
     	}
 

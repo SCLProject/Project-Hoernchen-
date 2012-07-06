@@ -1,7 +1,6 @@
 package jp.ac.oit.sclab.hoernchen.main.setting;
 
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -21,30 +20,44 @@ import javafx.stage.Popup;
 import jp.ac.oit.sclab.hoernchen.db.AccessDB;
 import jp.ac.oit.sclab.hoernchen.main.Student;
 
+/**
+ * @author Masanrori Kato
+ * 学生情報の登録画面用のコントローラークラス
+ * 
+ *
+ */
 public class RegistStudentInfoController  implements Initializable{
-	@FXML ComboBox<String> type_comb;
 
 
-	@FXML ComboBox<String> seat_comb;
-	@FXML ComboBox<String> felica_comb;
-	@FXML TextField studentNum_text;
-	@FXML TextField name_text;
-	@FXML Button felica_plus;
-
-	@FXML Label debug_label;
 
 
-	@FXML Button felica_minus;
-	@FXML Button ok_button;
-
-	@FXML Button apply_button;
-	Popup popup = null;
-	Map<String , Integer> typeTM;
-	List<Integer> seatList;
-
-	Student selectedStudent;
+	
+	@FXML ComboBox<String> type_comb;	//学年種別のコンボボックス
 
 
+	@FXML ComboBox<String> seat_comb;	//席リストのコンボボックス
+	@FXML ComboBox<String> felica_comb; //feicaのコンボボックス
+	@FXML TextField studentNum_text;	//学生番号
+	@FXML TextField name_text;			//名前
+	@FXML Button felica_plus;			//Felica情報の追加 使うかな？
+
+	@FXML Label debug_label;			//デバッグ用エリア
+
+
+	@FXML Button felica_minus;			//Felica情報の削除 使うかな？
+	@FXML Button ok_button;				//完了ボタン
+
+	@FXML Button apply_button;			//更新ボタン
+	Popup popup = null;					//ポップアップのインスタンス保存用
+	Map<String , Integer> typeTM;		//学年種別リストの保存
+	List<Integer> seatList;				//席情報リストの保存
+
+	Student selectedStudent;			//現在編集中のStudentクラス
+
+	/**
+	 * 	席情報コンボボックス用のイベントハンドラ
+	 * 	選択された値が変わると呼ばれる。
+	 */
 	EventHandler<ActionEvent> seatCombEvent = new EventHandler<ActionEvent>(){
 
 		@Override
@@ -55,29 +68,34 @@ public class RegistStudentInfoController  implements Initializable{
 			int typeID = 0;
 
 			if(type_comb.getValue() != null && seat_comb.getValue() != null){
-
-				try{
-					typeID = typeTM.get(type_comb.getValue());
-					seatID = Integer.parseInt(seat_comb.getValue());
-				}catch (Exception e){
-					e.printStackTrace();
-					typeID = 0;
-					seatID = 0;
+				if(!seat_comb.getValue().equals("")){
+					try{
+						typeID = typeTM.get(type_comb.getValue());
+						seatID = Integer.parseInt(seat_comb.getValue());
+					}catch (Exception e){
+						e.printStackTrace();
+						typeID = 0;
+						seatID = 0;
+					}
 				}
 			}
+			if(seatID >= Student.GRADE_3RD && seatID <= Student.GRADE_ETC){
+				debug("typeID = "+typeID+", seatID = "+seatID+", 学年 = "+Student.GRADE_NAME[typeID]);
 
-			debug("typeID = "+typeID+", seatID = "+seatID);
-
-			selectedStudent = new Student(seatID);
-
-
-			debug("student | "+ selectedStudent.toString());
+				selectedStudent = new Student(seatID);
 
 
-			setStudentName(selectedStudent.getName());
-			setStudentNumber(selectedStudent.getUserId());
+				debug("student | "+ selectedStudent.toString());
 
 
+				setStudentName(selectedStudent.getName());
+				setStudentNumber(selectedStudent.getUserId());
+
+			}else{
+				setStudentName("");
+				setStudentNumber("");
+
+			}
 
 
 
@@ -87,7 +105,10 @@ public class RegistStudentInfoController  implements Initializable{
 
 
 
-
+	/**
+	 * 	学年コンボボックス用のイベントハンドラ
+	 * 	選択された値が変わると呼ばれる。
+	 */
 	EventHandler<ActionEvent> typeCombEvent = new EventHandler<ActionEvent>(){
 
 		@Override
@@ -103,7 +124,7 @@ public class RegistStudentInfoController  implements Initializable{
 				seatList = adb.getSeatIdListByGrade(typeTM.get(type_comb.getValue()));
 
 				seat_comb.getItems().clear();
-
+				seat_comb.getItems().add("");
 				for(Integer i :seatList){
 					seat_comb.getItems().add(i.toString());
 				}
@@ -121,7 +142,10 @@ public class RegistStudentInfoController  implements Initializable{
 	}
 
 
-
+	/**
+	 * 	更新ボタン用のイベントハンドラ
+	 * 	
+	 */
 	EventHandler<MouseEvent> applyButtonEvent = new EventHandler<MouseEvent>() {
 
 		@Override
@@ -147,6 +171,11 @@ public class RegistStudentInfoController  implements Initializable{
 				}
 
 				//TODO : フィールドselectedStudentの情報をデータベースに書き込む。
+
+				setStudentName("");
+				setStudentNumber("");
+
+				seat_comb.setValue("");
 
 
 			}
@@ -222,7 +251,6 @@ public class RegistStudentInfoController  implements Initializable{
 		for(int i = Student.GRADE_ETC;i < Student.GRADE_3RD ; i--){
 			typeTM.put(Student.GRADE_NAME[i], i);
 		}
-
 
 
 		for(Iterator<String> it = typeTM.keySet().iterator();it.hasNext(); ){
