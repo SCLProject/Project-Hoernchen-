@@ -15,6 +15,10 @@ public class Student {
     	public static final int GRADE_MASTER = 2;
     	public static final int GRADE_ETC  = 3;
 
+    	public static final String[] GRADE_NAME = {"3rd Grade","4th Grade","Master Grade","Etc"};
+
+
+
 
 
 
@@ -76,4 +80,12 @@ public class Student {
     public void setFelicaId(long felicaId) {
 	this.felicaId = felicaId;
     }
+
+    @Override
+    public String toString() {
+    	// TODO 自動生成されたメソッド・スタブ
+    	return "名前："+getName()+",学生番号："+getUserId()+",学年："+Student.GRADE_NAME[getGrade()];
+    }
+
+
 }
