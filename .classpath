@@ -4,7 +4,7 @@
 	<classpathentry kind="src" path="lib"/>
 	<classpathentry kind="src" path="resource"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="C:/Program Files/Oracle/JavaFX 2.2 SDK/rt/lib/jfxrt.jar"/>
+	<classpathentry kind="lib" path="/System/Library/javafx-sdk2.2.0-beta/rt/lib/jfxrt.jar"/>
 	<classpathentry kind="lib" path="lib/sqlitejdbc-v056.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
